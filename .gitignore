@@ -2,9 +2,14 @@
 .nvim/
 
 
-# neovim configuration
+# neovim
 spell/
 plugin/
 
 # Mac
 .DS_Store
+
+# fish
+conf.d/
+completions/
+fish_variables

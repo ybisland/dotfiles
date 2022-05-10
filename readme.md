@@ -1,4 +1,13 @@
 2021.4.17
+
+# 安装配置文件
+```
+ln -s ~/dotfiles/nvim/ ~/.config/nvim
+ln -s ~/dotfiles/fish/ ~/.config/fish
+ln -s ~/dotfiles/tmux/.tmux.conf ~/.tmux.conf
+ln -s ~/dotfiles/tmux/.tmux/ ~/.tmux/
+```
+
 # 克隆仓库 
 先从网站上创建仓库，然后克隆到本地
 
@@ -116,3 +125,5 @@ trash -e
 4. LSP: clangd (如果下载llvm/clang会自带）: sudo apt install clangd
 5. trash-cli: sudo apt install trash-cli
 6. autojump: sudo apt
+7. ranger:sudo apt
+8. lazygit: brew / github
