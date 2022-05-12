@@ -1,7 +1,6 @@
 .vscode/
 .nvim/
 
-
 # neovim
 spell/
 plugin/
@@ -13,3 +12,6 @@ plugin/
 conf.d/
 completions/
 fish_variables
+
+# cpp
+.out
