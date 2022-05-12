@@ -1,6 +1,9 @@
 .vscode/
 .nvim/
 
+# tmux
+tmux.plugins/
+
 # neovim
 spell/
 plugin/
