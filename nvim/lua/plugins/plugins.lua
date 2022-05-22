@@ -121,7 +121,7 @@ local plugins_table = {
 	"lewis6991/gitsigns.nvim",
 	"akinsho/toggleterm.nvim",
 
-	"chentau/marks.nvim",
+	"chentoast/marks.nvim",
 	"folke/which-key.nvim",
 	"jose-elias-alvarez/null-ls.nvim", -- a plugin to use non-LSP formatter or diagnostic.
 	"lewis6991/impatient.nvim", -- Boost neovim startup time
@@ -131,6 +131,8 @@ local plugins_table = {
 	"booperlv/nvim-gomove", -- Move(<A-h/j/k/l>) & duplicate(<A-S-h/j/k/l>) blocks and lines
 
 	"rhysd/vim-grammarous", -- grammar check
+
+  -- "wasden/cmp-flypy.nvim", -- chinese input method plugin
 }
 
 -- Setup some plugins with short setup table
@@ -158,7 +160,7 @@ require("gomove").setup({
 -- (see more plugins: awesome-neovim
 --
 --> pakcer.nvim tutorial:
--- use {                                      -- in the body of funtion(use) , which locate at the end of this file
+-- use {                                      -- in the body of function(use) , which locate at the end of this file
 -- 'git@github.com:xxx/yyy',                  -- installation by ssh is faster than http
 -- cmd = {"Cmd1", "Cmd2"},                    -- Lazy loading on specific commands
 -- event = 'BufEnter',                        -- Lazy loading on specific autocommand events
@@ -171,7 +173,7 @@ require("gomove").setup({
 
 -- ----------↓↓ no need to read ↓↓--------------
 
--- Disable some standard-plugin : nvim & vim have some build-in plugins, called standard-plugin. nvim also support global-plugin (used for all kinds of files) and filetype plugin(only for specific type of file).
+-- Disable some standard-plugin : nvim & vim have some built-in plugins, called standard-plugin. nvim also support global-plugin (used for all kinds of files) and filetype plugin(only for specific type of file).
 vim.g.loaded_gzip = 1
 vim.g.loaded_zip = 1
 vim.g.loaded_zipPlugin = 1

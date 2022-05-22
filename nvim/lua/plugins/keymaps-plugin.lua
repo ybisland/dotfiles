@@ -14,7 +14,7 @@ keymap('n', '<A-.>', ' :BufferMoveNext<CR>', opts)
 
 -- ==SnipRun==
 keymap("n", "<F1>", "<cmd>lua require'sniprun'.run('n')<cr>", opts)
-keymap("x", "<F1>", "<Plug>SnipRun<cr>", opts) 
+keymap("x", "<F1>", "<Plug>SnipRun<cr>", opts)
 
 --[[ ==Nvim-Tree==
   ?        see all keymaps
@@ -117,7 +117,7 @@ end
 --[[ ==Matchup==
   %               Jump forward to next matching word or the ending of nearest inner block
   g%              Jump backforward to previous matching word
-  [%              Jump to nearest outer open word(parenthese)
-  ]%              Jump to nearest outer close word(parenthese)
-  z%              Jump to the begginning of nearest inner contained block 
+  [%              Jump to nearest outer open word(parentheses)
+  ]%              Jump to nearest outer close word(parentheses)
+  z%              Jump to the beginning of nearest inner contained block
 --]]

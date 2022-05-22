@@ -35,7 +35,7 @@ require("todo-comments").setup {
     exclude = {}, -- list of file types to exclude highlighting
   },
   -- list of named colors where we try to extract the guifg from the
-  -- list of hilight groups or use the hex color if hl not found as a fallback
+  -- list of highlight groups or use the hex color if hl not found as a fallback
   colors = {
     error = { "DiagnosticError", "ErrorMsg", "#DC2626" },
     warning = { "DiagnosticWarning", "WarningMsg", "#FBBF24" },

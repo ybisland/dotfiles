@@ -9,7 +9,7 @@ end
 -- nvim-treesitter.ts_utils.get_node_text is deprecated, now use vim.treesitter.query.get_node_text instead
 -- However, some plugins have not change this API, the warning above aprears.
 -- So the two lines aim to eliminate warning.
--- you can delete the two lines until plugin authors chage the API.
+-- you can delete the two lines until plugin authors change the API.
 local ts_utils = require("nvim-treesitter.ts_utils")
 ts_utils.get_node_text = vim.treesitter.query.get_node_text
 

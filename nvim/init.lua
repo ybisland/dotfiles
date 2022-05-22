@@ -83,7 +83,7 @@ X                       uninstall server
 
 ====telescope====
 Use `:Telescope picker_name` to use pickers.
-Telescope has many build-in pickers, here are some pickers that are most used.
+Telescope has many built-in pickers, here are some pickers that are most used.
   live_grep        -- search content in files
   find_file / fd   -- search file name
 

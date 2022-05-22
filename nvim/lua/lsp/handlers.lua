@@ -84,7 +84,7 @@ local function lsp_keymaps(bufnr)
 	-- vim.cmd([[ command! Format execute 'lua vim.lsp.buf.formatting()' ]])
 
   -- the keymaps below use the plugin lspsaga
-  -- the commented keymaps are setted in `whichkey.lua`
+  -- the commented keymaps are set in `whichkey.lua`
   local map = vim.api.nvim_buf_set_keymap
 	local opts = { noremap = true, silent = true }
   -- map(bufnr, "n", "gr", "<cmd>Lspsaga rename<cr>", opts)

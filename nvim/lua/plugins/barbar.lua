@@ -7,7 +7,7 @@ vim.g.bufferline = {
   -- Enable/disable current/total tabpages indicator (top right corner)
   tabpages = true,
   -- Enable/disable close button
-  closable = true, -- NOTE:some colorscheme don't change tab color when this buffer are modified, so I use this iterm to know whether the buffer are modified
+  closable = true, -- NOTE:some colorscheme don't change tab color when this buffer are modified, so I use this item to know whether the buffer are modified
 
   -- Enables/disable clickable tabs
   --  - left-click: go to buffer
@@ -55,7 +55,7 @@ vim.g.bufferline = {
   semantic_letters = true,
 
   -- New buffer letters are assigned in this order. This order is
-  -- optimal for the qwerty keyboard layout but might need adjustement
+  -- optimal for the qwerty keyboard layout but might need adjustment
   -- for other layouts.
   letters = 'asdfjkl;ghnmxcvbziowerutyqpASDFJKLGHNMXCVBZIOWERUTYQP',
 

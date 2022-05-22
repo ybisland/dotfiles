@@ -45,7 +45,7 @@ require'sniprun'.setup({
     SniprunFloatingWinErr  =  {fg="#881515",ctermfg="DarkRed"},
   },
 
-  --# miscellaneous compatibility/adjustement settings
+  --# miscellaneous compatibility/adjustment settings
   inline_messages = 0,             --# inline_message (0/1) is a one-line way to display messages
 				   --# to workaround sniprun not being able to display anything
 

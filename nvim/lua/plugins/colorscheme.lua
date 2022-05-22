@@ -51,7 +51,7 @@ if not status_ok then
 end
 
 --[[
-some scheme plugins(most are writen in vimL) contains many colorschemes, we can ues vim.cmd "colorscheme xxx" to change colorscheme
-however, some scheme plugins(most are writen in lua, eg. onedark) only contains one colorscheme with many style.
+some scheme plugins(most are written in vimL) contains many colorschemes, we can ues vim.cmd "colorscheme xxx" to change colorscheme
+however, some scheme plugins(most are written in lua, eg. onedark) only contains one colorscheme with many style.
 For these plugins, we can change its style to change the color shown in nvim.
 --]]
