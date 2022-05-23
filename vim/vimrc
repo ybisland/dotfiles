@@ -1,0 +1,174 @@
+
+" Author          : YinBin
+" Date            : 17 Apr 2021
+" Encoding format : UTF-8
+" Shortcut        :
+"   F2 -> NERDtree
+"   Tab -> coc completion
+" This file must be same with init.vim
+"TODO
+"运行
+"调试 vimspector
+"easymotion
+
+" ============================
+" === For neovim (and vim) ===
+" ============================
+set number "显示行号
+set relativenumber "显示相对行号
+" 插入模式显示绝对行号，普通模式显示相对行号
+autocmd InsertEnter * :set norelativenumber number
+autocmd InsertLeave * :set relativenumber
+set cursorline "高亮当前行
+set ignorecase "搜索时忽略大小写
+set smartcase "搜索中有大写字母时不忽略大小写
+set showmatch "显示括号配对，当键入] )时，高亮匹配的括号
+set laststatus=2 "总是显示状态栏
+"set whichwrap+=<,>,h,l "允许光标跨行
+set ruler "右下角显示光标位置
+set helplang=cn "帮助语言设置中文
+set langmenu=zh_CN.UTF-8
+set sidescroll=10 "横向滚动最小列数
+set scrolloff=5 "光标离上下界5行时自动滚动
+set shiftwidth=4 "每一级缩进的宽度 >> 和 <<
+set expandtab "把tab展开成4个空格
+set tabstop=4 " 1tab = 4space
+set softtabstop=4 "删除缩进时删除4个空格
+set mouse=nv "允许使用鼠标
+set mousemodel=popup
+auto FileType Makefile set noexpandtab
+let mapleader= "\<space>" "leader 键
+
+
+" ============================
+" == For vim (nvim default) ==
+" ============================
+syntax on "语法高亮
+set autoread "文件修改后自动读入
+set noerrorbells visualbell t_vb= "关闭错误提示音
+set nocompatible "去掉对老版本的兼容性,减少bug
+set hlsearch  "高亮搜索
+set incsearch "增量搜索(输入同时搜索
+set showcmd "在状态栏显示正在输入的命令
+set autoindent "代码自动缩进
+set cindent "c代码自动缩进
+
+" ----auto change cursor-----
+let &t_SI.="\e[5 q" "SI = INSERT mode
+let &t_SR.="\e[4 q" "SR = REPLACE mode
+let &t_EI.="\e[1 q" "EI = NORMAL mode (ELSE)
+" Cursor number:
+"  1 -> blinking block
+"  2 -> solid block
+"  3 -> blinking underscore
+"  4 -> solid underscore
+"  5 -> blinking vertical bar
+"  6 -> solid vertical bar
+
+
+"---按键映射----
+nnoremap <leader>1 1gt
+nnoremap <leader>2 2gt
+nnoremap <leader>3 3gt
+nnoremap <leader>4 4gt
+nnoremap <leader>5 5gt
+nnoremap <leader>6 6gt
+nnoremap <leader>7 7gt
+nnoremap <leader>8 8gt
+nnoremap <leader>9 9gt
+nnoremap <C-l> <C-w>l
+nnoremap <C-h> <C-w>h
+inoremap <C-l> <DEL>
+inoremap jk <ESC>
+nnoremap <leader>n :noh<cr>
+inoremap <C-a> <Home>
+inoremap <C-e> <End>
+nnoremap ： :
+
+
+"vim打开文件，光标定位到上次退出的位置
+if has("autocmd")
+    autocmd BufReadPost * if line("'\"") > 1 && line("'\"") <= line("$") | exe "normal! g'\"" | endif
+endif
+
+"********************************************************************************
+" 插件设置
+"********************************************************************************
+" -----Vim-plug配置----------"
+call plug#begin('~/.vim/plugged') "vim-plug下载插件的位置
+if(has("gui_running"))
+    call plug#begin("D:\\Program Files\\Vim\\vim82\\plugged") 
+endif
+Plug 'mhinz/vim-startify'  "启动页
+Plug 'preservim/nerdtree'
+Plug 'Xuyuanp/nerdtree-git-plugin'
+"状态栏美化
+Plug 'vim-airline/vim-airline'
+Plug 'vim-airline/vim-airline-themes'
+"缩进线
+Plug 'Yggdroot/indentLine'
+"配色
+Plug 'morhetz/gruvbox'
+Plug 'w0ng/vim-hybrid'
+Plug 'kien/ctrlp.vim'
+"自动补全
+Plug 'neoclide/coc.nvim', {'branch': 'release'}
+
+call plug#end()
+
+
+colorscheme gruvbox
+"colorscheme hybrid
+set background=dark
+
+"====NERDtree====
+nnoremap <F2> :NERDTreeToggle<cr>
+let g:NERDTreeWinPos = "right"
+let NERDTreeIgnore=['\.pyc','\~$','\.swp']
+let g:NERDTreeGitStatusIndicatorMapCustom= {
+    \ "Modified"  : "✹",
+    \ "Staged"    : "✚",
+    \ "Untracked" : "✭",
+    \ "Renamed"   : "➜",
+    \ "Unmerged"  : "═",
+    \ "Deleted"   : "✖",
+    \ "Dirty"     : "✗",
+    \ "Clean"     : "✔︎",
+    \ 'Ignored'   : '☒',
+    \ "Unknown"   : "?"
+    \ }
+"====airline====
+let g:airline#extensions#tabline#enabled = 1
+"====coc.nvim====
+"config for completion
+function! s:check_back_space() abort
+    let col = col('.') - 1
+    return !col || getline('.')[col - 1]  =~ '\s'
+endfunction 
+inoremap <silent><expr> <Tab> pumvisible() ? coc#_select_confirm() : <SID>check_back_space() ? "\<Tab>" : coc#refresh()
+
+"********************************************************************************
+" gvim设置
+"********************************************************************************
+if(has("gui_running"))
+    cd d:/Desktop "启动目录
+    set lines=30 columns=100  "窗口大小
+    autocmd GUIEnter * simalt ~x "启动时窗口最大化
+    set guifont=Consolas::h18 "字体:常规(空) 粗体b 斜体i:字号
+    set guioptions-=m    "隐藏顶部菜单栏
+    set guioptions-=T    "隐藏顶部工具栏
+    set guioptions-=L    "隐藏左侧滚动条
+    set guioptions-=l    "隐藏左侧滚动条
+    set guioptions-=R    "隐藏右侧滚动条
+    set guioptions-=r    "隐藏右侧滚动条
+    "---关闭bell提示音---
+    set visualbell t_vb= "关闭bell,但用闪屏替代bell
+    au GuiEnter * set t_vb= "关闭闪屏
+    inoremap <A-h> <Left>
+    inoremap <A-j> <Down>
+    inoremap <A-k> <Up>
+    inoremap <A-l> <Right>
+
+endif
+
+
