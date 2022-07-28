@@ -62,6 +62,7 @@ keymap('n', '；', ';', opts)
 -- keymap('n', '<Leader>n', '<cmd>noh<CR>',    opts)  -- this map set in whichkey
 
 -- == Insert ==
+keymap('i', '<C-o>', '<Esc>O',  opts)
 keymap('i', '<C-d>', '<Del>',   opts)
 keymap('i', '<C-a>', '<Esc>I',  opts)
 keymap('i', '<C-e>', '<End>',   opts)

@@ -43,8 +43,8 @@ local sources = {
   }),
 
   -- cppcheck invoke a [bug](lsp/init.lua line 14)
-  diagnostics.cppcheck,
-  diagnostics.codespell, -- TODO: sometimes this works
+  -- diagnostics.cppcheck,
+  -- diagnostics.codespell, -- TODO: sometimes this works
 }
 
 -- ↓↓↓↓↓↓↓↓↓ Ignore these ↓↓↓↓↓↓↓↓↓↓↓

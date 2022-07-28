@@ -104,6 +104,8 @@ local mappings_n = {
   ["a"] = { "<cmd>lua _Hop.hint_char1({multi_windows = true})<CR>", "Hop1" },
   ["s"] = { "<cmd>lua _Hop.hint_char2({multi_windows = true})<CR>", "Hop2" },
   ["d"] = { "<cmd>lua _Hop.hint_patterns({multi_windows = true})<CR>", "Hopn" },
+  ["j"] = { "<cmd>HopLineAC<cr>", "LineAfter"},
+  ["k"] = { "<cmd>HopLineBC<cr>", "LineBefore"},
 	["b"] = {
 		"<cmd>lua require('telescope.builtin').buffers(require('telescope.themes').get_dropdown{previewer = false})<cr>",
 		"Buffers",
@@ -125,6 +127,7 @@ local mappings_n = {
 		"Find Text",
 	}, -- anther useful theme: dropdown. or notheme
 	["P"] = { "<cmd>lua require('telescope').extensions.projects.projects()<cr>", "Projects" },
+  [";"] = { "2g;", "Last edition"},
 
 	p = {
 		name = "Packer",

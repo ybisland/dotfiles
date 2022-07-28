@@ -4,6 +4,13 @@
 --
 -- when you install a new plugin about 'cmp', you need to add it in cmp.setup.sources
 -- :CmpStatus to checkout status
+--
+-- # Luasnip
+-- Luasnip do these things in this lua file.
+-- 1. Provide snippets to nvim-cmp such as `main` -> `int main() { $1 return 0;}`,
+-- then nvim-cmp expand snippet. Related code is `sources.name == "luasnip"`.
+-- 2. Take lsp-syntax-snippet from nvim-cmp and expand it. Related code is `snippet.expand`.
+-- 3. jump in snippet when press <Tab>
 
 local cmp = require 'cmp' -- completion engine. Completion sources are installed from external repo and "sourced".
 local luasnip = require 'luasnip' -- snip engine
@@ -33,40 +40,102 @@ cmp.setup {
   emabled = true,
   snippet = { -- integrate snippet engine plugin via this.
     expand = function(args)
-      luasnip.lsp_expand(args.body)
+      --[[ @function:
+           If the item confirmed by`cmp.confirm` comes from source `nvim_lsp`, this function will be called.
+           `args` have only one member `body`, which is a lsp-syntax-snippet(lss) form string.
+           We pass lss to luasnip, who are able to parse lss and expand it.
+      --]]
+
+      --[[ The lss for function provided from `nvim_lsp` is something like `func_name($1{para1}, $2{para2})`.
+           It's annoying, so I change it. --]]
+      local idx, _ = string.find(args.body, '%(')
+      if idx == nil then -- Variable's lss
+        luasnip.lsp_expand(args.body)
+      else -- Function's lss
+        --[[ According to the number of parameters, format lss to `func_name($1, $2,.. $n)` ]]
+        --[[ local str = string.sub(args.body, 1, idx - 1) .. '('
+        local cnt = 0
+        idx, _ = string.find(args.body, '%$', idx + 1)
+        while idx ~= nil do
+          cnt = cnt + 1
+          idx, _ = string.find(args.body, '%$', idx + 1)
+        end
+        if cnt == 0 then
+          str = str .. ')'
+        else
+          for i = 1, cnt - 1, 1 do
+            str = str .. '$' .. i .. ', '
+          end
+          str = str .. '$' .. cnt .. ')'
+        end
+        print(str) ]]
+
+        --[[ According to the number of parameters, format lss to `func_name($1, $2,.. $n)` ]]
+        local str = string.sub(args.body, 1, idx - 1) .. '($1)'
+
+        luasnip.lsp_expand(str)
+      end
     end,
   },
 
   mapping = {  -- i->insert mode, c->command mode, s->select mode
-    ["<C-k>"] = cmp.mapping(cmp.mapping.select_prev_item(), {"i", "c"}),
-    ["<C-j>"] = cmp.mapping(cmp.mapping.select_next_item(), {"i", "c"}),
-    ["<C-p>"] = cmp.mapping(cmp.mapping.select_prev_item(), {"i", "c"}),
-    ["<C-n>"] = cmp.mapping(cmp.mapping.select_next_item(), {"i", "c"}),
+    ["<C-k>"] = cmp.mapping(cmp.mapping.select_prev_item(), { "i", "c" }),
+    ["<C-j>"] = cmp.mapping(cmp.mapping.select_next_item(), { "i", "c" }),
+    ["<C-p>"] = cmp.mapping(cmp.mapping.select_prev_item(), { "i", "c" }),
+    ["<C-n>"] = cmp.mapping(cmp.mapping.select_next_item(), { "i", "c" }),
     ["<C-u>"] = cmp.mapping(cmp.mapping.scroll_docs(-2), { "i", "c" }),
     ["<C-d>"] = cmp.mapping(cmp.mapping.scroll_docs(2), { "i", "c" }),
 
+    ["<C-Space>"] = cmp.mapping(cmp.mapping.complete(), { "i", "c" }),
     -- TODO: not know what the two do
-    -- ["<C-Space>"] = cmp.mapping(cmp.mapping.complete(), { "i", "c" }),
     -- ["<C-y>"] = cmp.config.disable, -- Specify `cmp.config.disable` if you want to remove the default `<C-y>` mapping.
     -- ["<C-e>"] = cmp.mapping { i = cmp.mapping.abort(), c = cmp.mapping.close(), },
-    ["<C-e>"] = cmp.mapping(cmp.mapping.abort(), {"i", "c"}),
-    ["<C-c>"] = cmp.mapping(cmp.mapping.abort(), {"i", "c"}),
+    -- ["<C-e>"] = cmp.mapping(cmp.mapping.abort(), { "i", "c" }),
+    ["<C-c>"] = cmp.mapping(cmp.mapping.abort(), { "i", "c" }),
     -- ["<Esc>"] = cmp.mapping(cmp.mapping.close()),
     ["<CR>"] = cmp.mapping.confirm(), -- Accept currently selected item.
     ["<Tab>"] = cmp.mapping(function(fallback)   -- enhance <tab>
-      if cmp.get_selected_entry() ~= nil then
-        cmp.confirm({select = false})
-      elseif luasnip.in_snippet() and luasnip.jumpable() then -- the same as the line below
-      -- elseif luasnip.expand_or_locally_jumpable() then -- Only jump in the current snippet
-        luasnip.expand_or_jump()
-      elseif cmp.visible() then  -- cmp.visible() return if the completion menu is showing
-        cmp.confirm({select = true}) -- Select the first item, when `select` is true.
-      elseif has_words_before() and not cmp.visible() then
-        -- cmp.complete_common_string()
-      -- elseif has_space_before() then
+      -- if cmp.get_selected_entry() ~= nil then
+      --   cmp.confirm({select = false})
+      -- elseif luasnip.in_snippet() and luasnip.jumpable() then -- the same as the line below
+      -- -- elseif luasnip.expand_or_locally_jumpable() then -- Only jump in the current snippet
+      --   luasnip.expand_or_jump()
+      -- elseif cmp.visible() then  -- cmp.visible() return if the completion menu is showing
+      --   cmp.confirm({select = true}) -- Select the first item, when `select` is true.
+      -- elseif has_words_before() and not cmp.visible() then
+      --   cmp.complete_common_string()
+      -- -- elseif has_space_before() then
+      -- --   fallback()
+      -- else
       --   fallback()
+      -- end
+
+      if cmp.visible() then
+        -- TODO:
+        -- local t = cmp.get_entries()
+        -- print(#t)
+        -- if #t <= 1 then
+        --   cmp.confirm({select = true})
+        -- else
+        --   print(cmp.complete_common_string())
+        --   -- if not cmp.complete_common_string() then
+        --   --   cmp.confirm({select = true})
+        --   -- end
+        -- end
+          
+        -- print(#t)
+        -- for i, v in ipairs(t) do print(i, v) end
+        if not cmp.complete_common_string() then
+          cmp.confirm({select = true})
+        end
       else
-        fallback()
+        if luasnip.in_snippet() and luasnip.jumpable(1) then
+          print("luasnip.in_snippet() and luasnip.jumpable(1) -> luasnip.jump(1)")
+          luasnip.jump(1)
+        else
+          print("not (luasnip.in_snippet() and luasnip.jumpable(1)) -> fallback")
+          fallback()
+        end
       end
     end, { "i", "s", "c" }),  -- s -> select mode
     ["<S-Tab>"] = cmp.mapping(function(fallback)  -- enhance <shift-tab>
@@ -107,7 +176,6 @@ cmp.setup {
   sources = { -- NOTE: the items' order below is the order of items showing in completion menu
     -- { name = "nvim_lsp", priority = 100 },
     { name = "nvim_lsp" },
-    -- { name = "nvim_lua" },
     { name = "luasnip"},
     { name = "buffer"},
     { name = "path"},
