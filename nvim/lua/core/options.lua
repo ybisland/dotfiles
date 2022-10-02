@@ -43,6 +43,7 @@ local options = {  -- :help options
   foldmethod = "expr",                     -- use treesitter to fold code
   foldlevelstart = 99,                     -- do not fold any code when entering a buffer
   guifont = "monospace:h17",               -- the font used in graphical neovim applications
+  -- autoread = true;                      -- TODO: not work
 }
 
 for k, v in pairs(options) do
