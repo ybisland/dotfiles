@@ -1,12 +1,14 @@
 -- Author            : YinBin
--- Date              : 05 May 2022
+-- Date              : 03 Oct 2022
 -- Encoding format   : UTF-8
+
+local tabsize = 2
 
 local options = {  -- :help options
   backup = false,                          -- creates a backup file
   writebackup = false,                     -- if a file is being edited by another program (or was written to file while editing with another program), it is not allowed to be edited
   clipboard = "unnamedplus",               -- allows neovim to access the system clipboard
-  cmdheight = 1,                           -- height of command line. must >= 1
+  cmdheight = 0,                           -- Hide command line
   completeopt = { "menu", "menuone", "noselect" }, -- mostly just for cmp
   conceallevel = 0,                        -- so that `` is visible in markdown files
   fileencoding = "utf-8",                  -- the encoding written to a file
@@ -28,8 +30,8 @@ local options = {  -- :help options
   undofile = true,                         -- enable persistent undo
   updatetime = 300,                        -- faster completion (4000ms default)
   expandtab = true,                        -- convert tabs to spaces
-  shiftwidth = 2,                          -- the number of spaces inserted for each indentation
-  tabstop = 2,                             -- insert 2 spaces for a tab
+  shiftwidth = tabsize,                    -- the number of spaces inserted for each indentation
+  tabstop = tabsize,                       -- insert 2 spaces for a tab
   cursorline = true,                       -- highlight the current line
   number = true,                           -- set numbered lines
   relativenumber = false,                  -- set relative numbered lines
@@ -39,7 +41,7 @@ local options = {  -- :help options
   scrolloff = 5,                           -- is one of my fav
   sidescrolloff = 5,
   laststatus = 3,                          -- global status line
-  spell = false,                           -- disable built-in spell check
+  spell = false,                           -- built-in spell check, only check the comments
   foldmethod = "expr",                     -- use treesitter to fold code
   foldlevelstart = 99,                     -- do not fold any code when entering a buffer
   guifont = "monospace:h17",               -- the font used in graphical neovim applications

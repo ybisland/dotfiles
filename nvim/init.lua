@@ -1,5 +1,5 @@
 -- Author            : YinBin
--- Date              : 06 Mar 2022
+-- Date              : 03 Oct 2022
 -- Encoding format   : UTF-8
 
 require 'plugins.impatient'  -- keep this at start
@@ -21,7 +21,7 @@ require 'plugins.marks'
 require 'plugins.barbar'
 require 'plugins.whichkey'
 require 'plugins.hlslens'
-require 'plugins.nvim-gps'
+require 'plugins.nvim-navic'
 require 'plugins.sniprun'
 require 'plugins.trouble'
 require 'plugins.toggleterm'

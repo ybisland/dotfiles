@@ -15,7 +15,7 @@ if color_scheme == 'onedarkpro' then
     colors = {
       -- my_new_red = "#f44336"
     },
-    hlgroups = { -- Overriding the Comment highlight group
+    highlights = { -- Overriding the Comment highlight group
       -- Comment = { fg = "${white}", bg = "${yellow}", style = "bold,italic" }, -- 2
 
       -- Label  = { fg = "${white}"},

@@ -36,7 +36,7 @@ keymap('n', '<C-h>', '<C-w>h', opts)
 -- keymap('n', '<C-k>', '<C-w>k', opts)
 keymap('n', '<C-l>', '<C-w>l', opts)
 
--- Navigate tab
+-- Navigate tab TODO:
 -- for i = 1, 9 do
 --   keymap('n', '<Leader>' .. i, i .. 'gt', opts) -- e.g keymap('n', '<Leader>1', '1gt', opts)
 -- end

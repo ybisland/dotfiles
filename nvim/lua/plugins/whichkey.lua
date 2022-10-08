@@ -128,6 +128,7 @@ local mappings_n = {
 	}, -- anther useful theme: dropdown. or notheme
 	["P"] = { "<cmd>lua require('telescope').extensions.projects.projects()<cr>", "Projects" },
   [";"] = { "2g;", "Last edition"},
+  ["m"] = { "<cmd>message<cr>", "Message"},
 
 	p = {
 		name = "Packer",
@@ -182,7 +183,7 @@ local mappings_n = {
     D = { "<cmd>lua vim.lsp.buf.declaration()<CR>", "Goto Declaration"},
     i = { "<cmd>lua vim.lsp.buf.implementation()<CR>", "Goto Implement"},
     r = { "<cmd>lua require'lspsaga.provider'.lsp_finder()<cr>", "Goto Reference"},
-    f = { "<cmd>lua vim.lsp.buf.formatting()<cr>", "Format" },
+    f = { "<cmd>lua vim.lsp.buf.format{ async = true }<cr>", "Format" },
     -- j = { "<cmd>lua vim.lsp.diagnostic.goto_next()<CR>", "Next Diagnostic"},
 		-- k = { "<cmd>lua vim.lsp.diagnostic.goto_prev()<cr>", "Prev Diagnostic"},
     j = { "<cmd>Lspsaga diagnostic_jump_prev<cr>", "Prev Diagnostic"},
@@ -210,9 +211,10 @@ local mappings_n = {
 		name = "Terminal",
 		n = { "<cmd>lua _NODE_TOGGLE()<cr>", "Node" },
 		u = { "<cmd>lua _NCDU_TOGGLE()<cr>", "NCDU" },
-		t = { "<cmd>lua _HTOP_TOGGLE()<cr>", "Htop" },
+		o = { "<cmd>lua _HTOP_TOGGLE()<cr>", "Htop" },
 		p = { "<cmd>lua _PYTHON_TOGGLE()<cr>", "Python" },
 		f = { "<cmd>ToggleTerm direction=float<cr>", "Float" },
+		t = { "<cmd>ToggleTerm direction=tab<cr>", "Float" },
 		h = { "<cmd>ToggleTerm size=10 direction=horizontal<cr>", "Horizontal" },
 		v = { "<cmd>ToggleTerm size=80 direction=vertical<cr>", "Vertical" },
 	},

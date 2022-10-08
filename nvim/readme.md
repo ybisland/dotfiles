@@ -41,3 +41,10 @@ print expr `:lua =expr`
 
 ## get filetype of the current window
 `:lua =vim.bo.filetype`
+
+## trick 5
+`nvim --startuptime output.txt`
+will print startuptime of neovim0.8 to the file `output.txt`
+
+## trick 6
+First select some chars in visual mode, then `*` and `#` can search the content since neovim0.8

@@ -18,14 +18,12 @@
 -- [ ] 'sunjon/shade.nvim',
 -- [ ] folke/which-key.nvim
 -- [ ] AckslD/nvim-whichkey-setup.lua
--- [x] surround
 -- [ ] quickfix
 -- [x] Nvim-Tree  ? to see keymaps
 -- [o] trouble    see repo to figure out if trouble need to be config
 -- [x] Gitsigns
 -- [x] hlslens
 -- [o] null ls    TODO: disable null-ls in c cpp files
--- [o] gps        need to fix icons
 --
 -- Plugins that need to add which-key
 -- - Gitsigns next_hunk, preview_hunk, blame_line, toggle_current_line_blame ...
@@ -51,86 +49,87 @@
 
 local useSSH = true -- download plugins from Github through SSH
 local plugins_table = {
-	"wbthomason/packer.nvim", -- Have packer manage itself. :PackerSync will update and compile plugins
-	-- lots of plugins relay on the following two plugins, although maybe these won't be needed in the future
-	"nvim-lua/popup.nvim", -- An implementation of the Popup API from vim in Neovim
-	"nvim-lua/plenary.nvim", -- Useful lua functions used by lots of plugins, existing highlight groups from themes will never be overwritten
+  "wbthomason/packer.nvim", -- Have packer manage itself. :PackerSync will update and compile plugins
+  -- lots of plugins relay on the following two plugins, although maybe these won't be needed in the future
+  "nvim-lua/popup.nvim", -- An implementation of the Popup API from vim in Neovim
+  "nvim-lua/plenary.nvim", -- Useful lua functions used by lots of plugins, existing highlight groups from themes will never be overwritten
 
-	"phaazon/hop.nvim",
-	-- 'git@github.com:easymotion/vim-easymotion',
-	"windwp/nvim-autopairs",
-	-- Better Comment
-	"numToStr/Comment.nvim",
-	"folke/todo-comments.nvim",
+  "phaazon/hop.nvim",
+  -- 'git@github.com:easymotion/vim-easymotion',
+  "windwp/nvim-autopairs",
+  -- Better Comment
+  "numToStr/Comment.nvim",
+  "folke/todo-comments.nvim",
 
-	"norcalli/nvim-colorizer.lua", -- show colors on the hex colorcode
+  "norcalli/nvim-colorizer.lua", -- show colors on the hex colorcode
 
-	-- colorscheme
-	"olimorris/onedarkpro.nvim", -- colorscheme onedarkpro
-	"Mofiqul/vscode.nvim", -- colorscheme vscode
-	"rafamadriz/neon",
-	"bluz71/vim-moonfly-colors",
-	"ChristianChiarulli/nvcode-color-schemes.vim",
+  -- colorscheme
+  "olimorris/onedarkpro.nvim", -- colorscheme onedarkpro
+  "Mofiqul/vscode.nvim", -- colorscheme vscode
+  "rafamadriz/neon",
+  "bluz71/vim-moonfly-colors",
+  "ChristianChiarulli/nvcode-color-schemes.vim",
 
-	"lukas-reineke/indent-blankline.nvim", -- indent-line
-	"romgrk/barbar.nvim",
-	"moll/vim-bbye",
-	"nvim-lualine/lualine.nvim",
-	"SmiteshP/nvim-gps",
-	"goolord/alpha-nvim", -- startify or dashboard
-	"andymass/vim-matchup", -- match and highlight syntax (eg. if .. then .. end)
-	"yamatsum/nvim-cursorline", -- show underline below the current word
-	"kevinhwang91/nvim-hlslens",
+  "lukas-reineke/indent-blankline.nvim", -- indent-line
+  "romgrk/barbar.nvim",
+  "moll/vim-bbye",
+  "nvim-lualine/lualine.nvim",
+  -- "SmiteshP/nvim-navic", -- show symbols in lualine, now is repleaced by lspsaga
+  "goolord/alpha-nvim", -- startify or dashboard
+  "andymass/vim-matchup", -- match and highlight syntax (eg. if .. then .. end)
+  "yamatsum/nvim-cursorline", -- show underline below the current word
+  { "kevinhwang91/nvim-hlslens", branch = "main" },
 
-	-- completion         when adding a new cmp-plugins, you have to add sources in lua/cmp.lua/cmp.setup.sources
-	"hrsh7th/nvim-cmp", -- The completion plugin
-	"hrsh7th/cmp-path", -- path completions
-	"hrsh7th/cmp-cmdline", -- cmdline completions
-	"hrsh7th/cmp-buffer", -- buffer completions
-	"hrsh7th/cmp-nvim-lsp",
-	"saadparwaiz1/cmp_luasnip", -- snippet completions
-	"octaltree/cmp-look", -- word completion
+  -- completion         when adding a new cmp-plugins, you have to add sources in lua/cmp.lua/cmp.setup.sources
+  "hrsh7th/nvim-cmp", -- The completion plugin
+  "hrsh7th/cmp-path", -- path completions
+  "hrsh7th/cmp-cmdline", -- cmdline completions
+  "hrsh7th/cmp-buffer", -- buffer completions
+  "hrsh7th/cmp-nvim-lsp",
+  "saadparwaiz1/cmp_luasnip", -- snippet completions
+  "octaltree/cmp-look", -- word completion
 
-	-- snip
-	"L3MON4D3/LuaSnip", -- snippet engine
-	"rafamadriz/friendly-snippets", -- a bunch of snippets to use
-	-- LSP
-	"neovim/nvim-lspconfig", -- Quickstart configurations for the Nvim LSP client
-	"williamboman/nvim-lsp-installer", -- language server installer↴
-	"folke/trouble.nvim", -- a pretty list instead of nvim bulid-in local list
-	"michaelb/sniprun", -- TODO:
-	-- 'CRAG666/code_runner.nvim',
-	"ray-x/lsp_signature.nvim", -- show func signature when typing
-	"tami5/lspsaga.nvim", -- UI for lsp, see gif @ github.com/glepnir/lspsaga.nvim
-	"folke/lsp-colors.nvim", -- creates missing LSP diagnostics highlight & undercurls
+  -- snip
+  "L3MON4D3/LuaSnip", -- snippet engine
+  "rafamadriz/friendly-snippets", -- a bunch of snippets to use
+  -- LSP
+  "neovim/nvim-lspconfig", -- Quickstart configurations for the Nvim LSP client
+  "williamboman/nvim-lsp-installer", -- language server installer↴
+  "folke/trouble.nvim", -- a pretty list instead of nvim bulid-in local list
+  "michaelb/sniprun", -- TODO:
+  -- 'CRAG666/code_runner.nvim',
+  "ray-x/lsp_signature.nvim", -- show func signature when typing
+  { "glepnir/lspsaga.nvim", branch = "main" }, -- UI for lsp, see gif @ github.com/glepnir/lspsaga.nvim
+  "folke/lsp-colors.nvim", -- creates missing LSP diagnostics highlight & undercurls
 
-	{ "nvim-treesitter/nvim-treesitter", run = ":TSUpdate" },
-	"JoosepAlviste/nvim-ts-context-commentstring",
-	-- 'nvim-treesitter/playground'  -- View treesitter information directly in Neovim!
-	"p00f/nvim-ts-rainbow",
+  { "nvim-treesitter/nvim-treesitter", run = ":TSUpdate" },
+  "JoosepAlviste/nvim-ts-context-commentstring",
+  -- 'nvim-treesitter/playground'  -- View treesitter information directly in Neovim!
+  "p00f/nvim-ts-rainbow",
 
-	"nvim-telescope/telescope.nvim",
-	"nvim-telescope/telescope-media-files.nvim",
-	"nvim-telescope/telescope-hop.nvim",
-	"nvim-telescope/telescope-ui-select.nvim",
+  "nvim-telescope/telescope.nvim",
+  "nvim-telescope/telescope-media-files.nvim",
+  "nvim-telescope/telescope-hop.nvim",
+  "nvim-telescope/telescope-ui-select.nvim",
 
-	"kyazdani42/nvim-web-devicons",
-	"kyazdani42/nvim-tree.lua",
+  "kyazdani42/nvim-web-devicons",
+  "kyazdani42/nvim-tree.lua",
 
-	"tpope/vim-surround",
-	"lewis6991/gitsigns.nvim",
-	"akinsho/toggleterm.nvim",
+  "kylechui/nvim-surround",
 
-	"chentoast/marks.nvim",
-	"folke/which-key.nvim",
-	"jose-elias-alvarez/null-ls.nvim", -- a plugin to use non-LSP formatter or diagnostic.
-	"lewis6991/impatient.nvim", -- Boost neovim startup time
-	"ahmedkhalf/project.nvim",
-	"rmagatti/auto-session",
-	"anuvyklack/pretty-fold.nvim", -- TODO: not work
-	"booperlv/nvim-gomove", -- Move(<A-h/j/k/l>) & duplicate(<A-S-h/j/k/l>) blocks and lines
+  "lewis6991/gitsigns.nvim",
+  { "akinsho/toggleterm.nvim", tag = "*" },
 
-	"rhysd/vim-grammarous", -- grammar check
+  "chentoast/marks.nvim",
+  "folke/which-key.nvim",
+  "jose-elias-alvarez/null-ls.nvim", -- a plugin to use non-LSP formatter or diagnostic.
+  "lewis6991/impatient.nvim", -- Boost neovim startup time
+  "ahmedkhalf/project.nvim",
+  "rmagatti/auto-session",
+  "anuvyklack/pretty-fold.nvim", -- TODO: not work
+  "booperlv/nvim-gomove", -- Move(<A-h/j/k/l>) & duplicate(<A-S-h/j/k/l>) blocks and lines
+
+  "rhysd/vim-grammarous", -- grammar check
 
   -- "wasden/cmp-flypy.nvim", -- chinese input method plugin
 }
@@ -141,20 +140,22 @@ require("alpha").setup(require("alpha.themes.startify").config)
 require("Comment").setup()
 require("todo-comments").setup()
 require("colorizer").setup()
+require("nvim-surround").setup()
+
 -- matchup is not written by lua, so we have to setup it by traditional way
 vim.g.matchup_matchparen_offscreen = {}
 vim.g.matchup_matchparen_deferred = 1
 vim.g.matchup_matchparen_hi_surround_always = 1
 
 require("gomove").setup({
-	-- whether or not to map default key bindings, (true/false)
-	map_defaults = true,
-	-- whether or not to reindent lines moved vertically (true/false)
-	reindent = true,
-	-- whether or not to undojoin same direction moves (true/false)
-	undojoin = true,
-	-- whether to not to move past end column when moving blocks horizontally, (true/false)
-	move_past_end_col = false,
+  -- whether or not to map default key bindings, (true/false)
+  map_defaults = true,
+  -- whether or not to reindent lines moved vertically (true/false)
+  reindent = true,
+  -- whether or not to undojoin same direction moves (true/false)
+  undojoin = true,
+  -- whether to not to move past end column when moving blocks horizontally, (true/false)
+  move_past_end_col = false,
 })
 
 -- (see more plugins: awesome-neovim
@@ -191,16 +192,16 @@ local fn = vim.fn
 -- Automatically install packer.nvim
 local install_path = fn.stdpath("data") .. "/site/pack/packer/start/packer.nvim" -- `data` stands for `~/.local/share/nvim`
 if fn.empty(fn.glob(install_path)) > 0 then
-	PACKER_BOOTSTRAP = fn.system({
-		"git",
-		"clone",
-		"--depth",
-		"1",
-		"https://github.com/wbthomason/packer.nvim",
-		install_path,
-	})
-	print("Installing packer close and reopen Neovim...")
-	vim.cmd([[packadd packer.nvim]]) -- run packer.nvim
+  PACKER_BOOTSTRAP = fn.system({
+    "git",
+    "clone",
+    "--depth",
+    "1",
+    "https://github.com/wbthomason/packer.nvim",
+    install_path,
+  })
+  print("Installing packer close and reopen Neovim...")
+  vim.cmd([[packadd packer.nvim]]) -- run packer.nvim
 end
 
 -- Automatically reloads neovim whenever you save this plugins.lua file
@@ -214,35 +215,35 @@ vim.cmd([[
 -- Use a protected call so we don't error out on first use
 local status_ok, packer = pcall(require, "packer")
 if not status_ok then
-	return
+  return
 end
 
 -- Have packer use a popup window
 packer.init({
-	display = {
-		open_fn = function()
-			return require("packer.util").float({ border = "rounded" })
-		end,
-	},
+  display = {
+    open_fn = function()
+      return require("packer.util").float({ border = "rounded" })
+    end,
+  },
 })
 
 -- Install plugins here
 return packer.startup(function(use)
-	if useSSH then
-		for idx, plugin in ipairs(plugins_table) do
-			if type(plugin) == "string" then
-				plugins_table[idx] = "git@github.com:" .. plugins_table[idx]
-			else
-				plugins_table[idx][1] = "git@github.com:" .. plugins_table[idx][1]
-			end
-		end
-	end
-	for _, plugin in pairs(plugins_table) do
-		use(plugin)
-	end
-	-- Automatically set up your configuration after cloning(installing) packer.nvim
-	-- Put this at the end after all plugins
-	if PACKER_BOOTSTRAP then
-		require("packer").sync()
-	end
+  if useSSH then
+    for idx, plugin in ipairs(plugins_table) do
+      if type(plugin) == "string" then
+        plugins_table[idx] = "git@github.com:" .. plugins_table[idx]
+      else
+        plugins_table[idx][1] = "git@github.com:" .. plugins_table[idx][1]
+      end
+    end
+  end
+  for _, plugin in pairs(plugins_table) do
+    use(plugin)
+  end
+  -- Automatically set up your configuration after cloning(installing) packer.nvim
+  -- Put this at the end after all plugins
+  if PACKER_BOOTSTRAP then
+    require("packer").sync()
+  end
 end)

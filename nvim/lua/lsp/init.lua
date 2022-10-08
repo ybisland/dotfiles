@@ -10,12 +10,15 @@ require("lsp.null-ls")
 require("lsp.lsp_signature")
 require("lsp.lspsaga")
 
--- BUG: 
+-- BUG:
 -- github.com/jose-elias-alvarez/null-ls.nvim/issues/428
 local capabilities = vim.lsp.protocol.make_client_capabilities()
-capabilities.offsetEncoding = { "utf-16" }
-require("lspconfig").clangd.setup({ capabilities = capabilities })
+-- capabilities.offsetEncoding = { "utf-16" }
+-- require("lspconfig").clangd.setup({})
 
+require("lspconfig").clangd.setup({
+  capabilities = capabilities,
+})
 --[[
 If we just use nvim-lspconfig without nvim-lsp-installer, we need to 
 use `require('lspconfig')[lsp_name].setup()` to start language server. And before this

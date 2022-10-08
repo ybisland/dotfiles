@@ -15,7 +15,7 @@
 local cmp = require 'cmp' -- completion engine. Completion sources are installed from external repo and "sourced".
 local luasnip = require 'luasnip' -- snip engine
 
-require("luasnip/loaders/from_vscode").lazy_load()
+-- require("luasnip/loaders/from_vscode").lazy_load()
 
 local has_space_before = function() -- enhance supertab
   local col = vim.fn.col "." - 1
@@ -37,46 +37,38 @@ local kind_icons = {
 } -- find more here: https://www.nerdfonts.com/cheat-sheet
 
 cmp.setup {
-  emabled = true,
+  enabled = true,
   snippet = { -- integrate snippet engine plugin via this.
     expand = function(args)
       --[[ @function:
-           If the item confirmed by`cmp.confirm` comes from source `nvim_lsp`, this function will be called.
+           If the item confirmed by`cmp.confirm` which comes from source `nvim_lsp`, this function will be called.
            `args` have only one member `body`, which is a lsp-syntax-snippet(lss) form string.
            We pass lss to luasnip, who are able to parse lss and expand it.
       --]]
 
       --[[ The lss for function provided from `nvim_lsp` is something like `func_name($1{para1}, $2{para2})`.
            It's annoying, so I change it. --]]
-      local idx, _ = string.find(args.body, '%(')
-      if idx == nil then -- Variable's lss
-        luasnip.lsp_expand(args.body)
-      else -- Function's lss
-        --[[ According to the number of parameters, format lss to `func_name($1, $2,.. $n)` ]]
-        --[[ local str = string.sub(args.body, 1, idx - 1) .. '('
-        local cnt = 0
-        idx, _ = string.find(args.body, '%$', idx + 1)
-        while idx ~= nil do
-          cnt = cnt + 1
-          idx, _ = string.find(args.body, '%$', idx + 1)
-        end
-        if cnt == 0 then
-          str = str .. ')'
-        else
-          for i = 1, cnt - 1, 1 do
-            str = str .. '$' .. i .. ', '
-          end
-          str = str .. '$' .. cnt .. ')'
-        end
-        print(str) ]]
+      -- local idx, _ = string.find(args.body, '%(')
+      -- if idx == nil then -- Variable
+      --   luasnip.lsp_expand(args.body)
+      -- else -- Function
+      --   --[[ According to the number of parameters, format lss to `func_name($1, $2,.. $n)` ]]
+      --   local str = string.sub(args.body, 1, idx - 1) .. '('
+      --   idx, _ = string.find(args.body, '%$', idx + 1)  -- %$ is escape character of $
+      --   if idx ~= nil then
+      --     str = str .. '$0)'
+      --   else
+      --     str = str .. ')'
+      --   end
+      --   -- print(str)
+      --   luasnip.lsp_expand(str)
+      -- end
 
-        --[[ According to the number of parameters, format lss to `func_name($1, $2,.. $n)` ]]
-        local str = string.sub(args.body, 1, idx - 1) .. '($1)'
-
-        luasnip.lsp_expand(str)
-      end
+      print(args.body)
+      luasnip.lsp_expand(args.body)
     end,
   },
+  preselect = cmp.PreselectMode.None,
 
   mapping = {  -- i->insert mode, c->command mode, s->select mode
     ["<C-k>"] = cmp.mapping(cmp.mapping.select_prev_item(), { "i", "c" }),
@@ -149,11 +141,13 @@ cmp.setup {
   formatting = {
     -- NOTE: the order of fields that shown in cmp menu item. e.g. { "abbr", "kind", "menu" } -> word Text [LSP]
     -- fields = { "abbr", "kind", "menu" }, -- format of cmp menu items, menu - the source of item, abbr - whole completion words,
-    fields = { "kind", "abbr", "menu" }, -- format of cmp menu items, menu - the source of item, abbr - whole completion words,
+    fields = { "abbr", "kind", "menu" }, -- format of cmp menu items, menu - the source of item, abbr - whole completion words,
     format = function(entry, vim_item)
       -- NOTE: Appreance of Kind icons
-      vim_item.kind = string.format("%s", kind_icons[vim_item.kind]) -- only show the icons
-      -- vim_item.kind = string.format('%s%s', kind_icons[vim_item.kind], vim_item.kind) -- show icons and it's kind name e.g. Text
+      local kind = vim_item.kind
+      -- vim_item.kind = kind_icons[kind] -- only show the icons
+      -- vim_item.kind = string.format("%s", kind_icons[vim_item.kind]) -- only show the icons
+      vim_item.kind = string.format('%s%s', kind_icons[vim_item.kind], vim_item.kind) -- show icons and it's kind name e.g. Text
       vim_item.menu = ({ -- * sources name
         nvim_lsp = "[L]",
         -- nvim_lua = "[NVIM_LUA]",  -- TODO:
@@ -162,9 +156,14 @@ cmp.setup {
         look = "[W]",
         path = "[P]",
       })[entry.source.name]
+      if kind == 'Function' or kind == 'Method' then
+        local idx, _ = string.find(vim_item.abbr, '%(')
+        local t = string.sub(vim_item.abbr, 1, idx - 1)
+        vim_item.abbr = t
+      end
       -- NOTE: Truncate long items to a desired length
       local ELLIPSIS_CHAR = '…'
-      local MAX_ITEM_LENGTH = 30
+      local MAX_ITEM_LENGTH = 50
       local item = vim_item.abbr
       local truncated_item = vim.fn.strcharpart(item, 0, MAX_ITEM_LENGTH)
       if truncated_item ~= item then
@@ -200,6 +199,7 @@ cmp.setup {
     },
     documentation = cmp.config.window.bordered(),
   },
+  expandable_indicator = false, -- show the `~` expandable indicator in the completion menu
   experimental = {
     ghost_text = true,
     native_menu = false,
