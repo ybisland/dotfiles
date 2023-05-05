@@ -79,7 +79,7 @@ cmp.setup {
     ["<C-d>"] = cmp.mapping(cmp.mapping.scroll_docs(2), { "i", "c" }),
 
     ["<C-Space>"] = cmp.mapping(cmp.mapping.complete(), { "i", "c" }),
-    -- TODO: not know what the two do
+    -- TODO: not know what do the two settings below do
     -- ["<C-y>"] = cmp.config.disable, -- Specify `cmp.config.disable` if you want to remove the default `<C-y>` mapping.
     -- ["<C-e>"] = cmp.mapping { i = cmp.mapping.abort(), c = cmp.mapping.close(), },
     -- ["<C-e>"] = cmp.mapping(cmp.mapping.abort(), { "i", "c" }),

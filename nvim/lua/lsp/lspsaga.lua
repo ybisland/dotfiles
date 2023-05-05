@@ -36,7 +36,7 @@ lspsaga.init_lsp_saga({
   -- if your project big enough or your server very slow
   -- you may need to increase this value
   finder_request_timeout = 1500,
-  finder_action_keys = { -- TODO: 设置该项，设置快捷键
+  finder_action_keys = { -- NOTE: 设置该项，设置快捷键
     open = "o",
     vsplit = "s",
     split = "i",

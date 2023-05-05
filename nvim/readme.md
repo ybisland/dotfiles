@@ -1,3 +1,13 @@
+### Deprecated!!
+
+2023.5.5
+
+准备搞Windows下的嵌入式开发了，Windows下没有tmux等unix-like常用软件，
+所以全面换成VsCode开发了。该仓库封存，若以后换到unix-like环境，再考虑重启该仓库。
+
+若重启，建议使用lunarVim或lazy.nvim项目，而该仓库仅作为一种配置示例。
+
+
 ## trick 1
 
 How to get the filetype in lua in nvim?
