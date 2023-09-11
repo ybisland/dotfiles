@@ -1,58 +1,62 @@
+" Author:                   YinBin
+" Date:                     09 Sep 2023
+" Encoding format:          UTF-8
+" Vim Version:              Vim 8.1
+" 
+" Key Bindings:
+"   gc -> toggle comment
+"
+" Config File Location:
+"   system vimrc file: "$VIM/vimrc"
+"   user vimrc file: "$HOME/.vimrc"
+" Todo:
+" - [y] colorscheme
+" - [y] 括号补全
+" - [y] <a-hjkl>
 
-" Author          : YinBin
-" Date            : 17 Apr 2021
-" Encoding format : UTF-8
-" Shortcut        :
-"   F2 -> NERDtree
-"   Tab -> coc completion
-" This file must be same with init.vim
-"TODO
-"运行
-"调试 vimspector
-"easymotion
+
 
 " ============================
 " === For neovim (and vim) ===
 " ============================
-set number "显示行号
-set relativenumber "显示相对行号
+set number                " 显示行号
+set relativenumber        " 显示相对行号
 " 插入模式显示绝对行号，普通模式显示相对行号
 autocmd InsertEnter * :set norelativenumber number
 autocmd InsertLeave * :set relativenumber
-set cursorline "高亮当前行
-set ignorecase "搜索时忽略大小写
-set smartcase "搜索中有大写字母时不忽略大小写
-set showmatch "显示括号配对，当键入] )时，高亮匹配的括号
-set laststatus=2 "总是显示状态栏
-"set whichwrap+=<,>,h,l "允许光标跨行
-set ruler "右下角显示光标位置
-set helplang=cn "帮助语言设置中文
-set langmenu=zh_CN.UTF-8
-set sidescroll=10 "横向滚动最小列数
-set scrolloff=5 "光标离上下界5行时自动滚动
-set shiftwidth=4 "每一级缩进的宽度 >> 和 <<
-set expandtab "把tab展开成4个空格
-set tabstop=4 " 1tab = 4space
-set softtabstop=4 "删除缩进时删除4个空格
-set mouse=nv "允许使用鼠标
+set cursorline            " 高亮当前行
+set ignorecase            " 搜索时忽略大小写
+set smartcase             " 搜索中有大写字母时不忽略大小写
+set showmatch             " 显示括号配对，当键入] )时，高亮匹配的括号
+set laststatus=2          " 总是显示状态栏
+"set whichwrap+=<,>,h,l   " 允许光标跨行
+set ruler                 " 右下角显示光标位置
+set sidescroll=10         " 横向滚动最小列数
+set scrolloff=5           " 光标离上下界5行时自动滚动
+set shiftwidth=4          " 每一级缩进的宽度 >> 和 <<
+set expandtab             " 把tab展开成4个空格
+set tabstop=4             "  1tab = 4space
+set softtabstop=4         " 删除缩进时删除4个空格
+set mouse=nv              " 允许使用鼠标
 set mousemodel=popup
-auto FileType Makefile set noexpandtab
-let mapleader= "\<space>" "leader 键
-
+auto FileType make set noexpandtab
+let mapleader= "\<space>" " leader 键
+""set termguicolors "如果颜色显示错误，就注释掉
 
 " ============================
 " == For vim (nvim default) ==
 " ============================
-syntax on "语法高亮
-set autoread "文件修改后自动读入
-set noerrorbells visualbell t_vb= "关闭错误提示音
-set nocompatible "去掉对老版本的兼容性,减少bug
-set hlsearch  "高亮搜索
-set incsearch "增量搜索(输入同时搜索
-set showcmd "在状态栏显示正在输入的命令
-set autoindent "代码自动缩进
-set cindent "c代码自动缩进
-
+syntax on                         " 语法高亮
+set autoread                      " 文件修改后自动读入
+set noerrorbells visualbell t_vb= " 关闭错误提示音
+set nocompatible                  " 去掉对老版本的兼容性,减少bug
+set hlsearch                      " 高亮搜索
+set incsearch                     " 增量搜索(输入同时搜索
+set showcmd                       " 在状态栏显示正在输入的命令
+set autoindent                    " 代码自动缩进
+set cindent                       " c代码自动缩进
+set encoding=utf8
+set termguicolors
 " ----auto change cursor-----
 let &t_SI.="\e[5 q" "SI = INSERT mode
 let &t_SR.="\e[4 q" "SR = REPLACE mode
@@ -65,91 +69,160 @@ let &t_EI.="\e[1 q" "EI = NORMAL mode (ELSE)
 "  5 -> blinking vertical bar
 "  6 -> solid vertical bar
 
+" 取消Insert模式下按键序列等待时间，因为它会导致esc键延迟
+" 此后Insert模式无法映射按键序列，如 jk -> <Esc>, 但不影响单键映射，如 <C-a> -> <Home>
+autocmd InsertEnter * set timeoutlen=0
+autocmd InsertLeave * set timeoutlen=300
 
-"---按键映射----
-nnoremap <leader>1 1gt
-nnoremap <leader>2 2gt
-nnoremap <leader>3 3gt
-nnoremap <leader>4 4gt
-nnoremap <leader>5 5gt
-nnoremap <leader>6 6gt
-nnoremap <leader>7 7gt
-nnoremap <leader>8 8gt
-nnoremap <leader>9 9gt
-nnoremap <C-l> <C-w>l
-nnoremap <C-h> <C-w>h
-inoremap <C-l> <DEL>
-inoremap jk <ESC>
-nnoremap <leader>n :noh<cr>
+"---Key Maps----
+nnoremap <leader>j gT
+nnoremap <leader>k gt
+nnoremap <C-l> :bn<cr>
+nnoremap <C-h> :bp<cr>
+nnoremap 0 ^
+nnoremap <C-w>> <C-w>5>
+nnoremap <C-w>< <C-w>5<
+"readline
+inoremap <C-d> <Del>
 inoremap <C-a> <Home>
 inoremap <C-e> <End>
+inoremap <C-b> <Left>
+inoremap <C-f> <Right>
+nnoremap <leader>n :noh<cr>
 nnoremap ： :
+cnoremap <C-a> <Home>
+cnoremap <C-e> <End>
+cnoremap sp set paste
+cnoremap sour source $MYVIMRC
+cnoremap tn tabnew
+
+nnoremap L $
+nnoremap H ^
+vnoremap L $
+vnoremap H ^
+
+" ============================
+" ==        <alt-j/k>       ==
+" ============================
+" may not work using Windows terminal
+" 移动当前行或选中的行向上
+function! MoveLineUp()
+    if line('.') == 1
+        " 如果已经是文件的第一行，则不做任何操作
+        return
+    endif
+    normal! "zddkP
+endfunction
+
+" 移动当前行或选中的行向下
+function! MoveLineDown()
+    if line('.') == line('$')
+        " 如果已经是文件的最后一行，则不做任何操作
+        return
+    endif
+    normal! "zddp
+endfunction
+
+" 为 Normal 和 Visual 模式设置映射
+nnoremap <a-j> :call MoveLineDown()<CR>
+nnoremap <a-k> :call MoveLineUp()<CR>
+vnoremap <a-j> :<C-U>call MoveLineDown()<CR>
+vnoremap <a-k> :<C-U>call MoveLineUp()<CR>
 
 
-"vim打开文件，光标定位到上次退出的位置
-if has("autocmd")
-    autocmd BufReadPost * if line("'\"") > 1 && line("'\"") <= line("$") | exe "normal! g'\"" | endif
-endif
 
-"********************************************************************************
-" 插件设置
-"********************************************************************************
-" -----Vim-plug配置----------"
-call plug#begin('~/.vim/plugged') "vim-plug下载插件的位置
-if(has("gui_running"))
-    call plug#begin("D:\\Program Files\\Vim\\vim82\\plugged") 
-endif
-Plug 'mhinz/vim-startify'  "启动页
-Plug 'preservim/nerdtree'
-Plug 'Xuyuanp/nerdtree-git-plugin'
-"状态栏美化
-Plug 'vim-airline/vim-airline'
-Plug 'vim-airline/vim-airline-themes'
-"缩进线
-Plug 'Yggdroot/indentLine'
-"配色
-Plug 'morhetz/gruvbox'
-Plug 'w0ng/vim-hybrid'
-Plug 'kien/ctrlp.vim'
-"自动补全
-Plug 'neoclide/coc.nvim', {'branch': 'release'}
-
-call plug#end()
+" 打开文件时定位到上次退出的位置
+autocmd BufReadPost * if line("'\"") > 1 && line("'\"") <= line("$") | exe "normal! g'\"" | endif
 
 
-colorscheme gruvbox
-"colorscheme hybrid
-set background=dark
+" ============================
+" ==     Toggle Comment     ==
+" ============================
 
-"====NERDtree====
-nnoremap <F2> :NERDTreeToggle<cr>
-let g:NERDTreeWinPos = "right"
-let NERDTreeIgnore=['\.pyc','\~$','\.swp']
-let g:NERDTreeGitStatusIndicatorMapCustom= {
-    \ "Modified"  : "✹",
-    \ "Staged"    : "✚",
-    \ "Untracked" : "✭",
-    \ "Renamed"   : "➜",
-    \ "Unmerged"  : "═",
-    \ "Deleted"   : "✖",
-    \ "Dirty"     : "✗",
-    \ "Clean"     : "✔︎",
-    \ 'Ignored'   : '☒',
-    \ "Unknown"   : "?"
-    \ }
-"====airline====
-let g:airline#extensions#tabline#enabled = 1
-"====coc.nvim====
-"config for completion
-function! s:check_back_space() abort
-    let col = col('.') - 1
-    return !col || getline('.')[col - 1]  =~ '\s'
-endfunction 
-inoremap <silent><expr> <Tab> pumvisible() ? coc#_select_confirm() : <SID>check_back_space() ? "\<Tab>" : coc#refresh()
+" commentary
+" Define a dictionary of comment strings for various filetypes
+let g:commentStrings = {
+            \ 'c': '//',
+            \ 'cpp': '//',
+            \ 'javascript': '//',
+            \ 'python': '#',
+            \ 'sh': '#',
+            \ 'lua': '--',
+            \ 'vim': '\"'
+            \ }
 
-"********************************************************************************
-" gvim设置
-"********************************************************************************
+function! ToggleCommentLine(line, commentMarkStyle)
+    " Get the comment string for the current filetype
+    let l:commentString = get(g:commentStrings, &filetype, '')
+    if l:commentString == ''
+        echo "No comment string defined for this filetype"
+        return
+    endif
+
+    " Check if the line is commented
+    if getline(a:line) =~ '^' . l:commentString
+        " Uncomment the line when comment is at the start of line
+        execute a:line . 's/^' . l:commentString . ' \?\(\s*\)/\1/'
+    elseif getline(a:line) =~ '^\s*' . l:commentString
+        " Uncomment the line when comment is after whitespace
+        execute a:line . 's/^\(\s*\)' . l:commentString . ' \?/\1/'
+    else " Two comment style
+        if a:commentMarkStyle == 1
+            " Comment out the line by placing comment before whitespace
+            execute a:line . 's/^\(\s*\)/' . l:commentString . ' \1/'
+        else
+            " Comment out the line by placing comment after whitespace
+            execute a:line . 's/^\(\s*\)/\1' . l:commentString . ' /'
+        endif
+    endif
+endfunction
+
+function! ToggleCommentRange(start, end)
+    " Get the comment string for the current filetype
+    let l:commentString = get(g:commentStrings, &filetype, '')
+    if l:commentString == ''
+        echo "No comment string defined for this filetype"
+        return
+    endif
+    let l:space = ' '
+
+    let l:flag = 0 " 0 need to uncomment; 1 need to comment
+    let l:cnt = 0
+    " if there is at least 1 line that isn't commented, the selected lines will be comment.
+    for l:line in range(a:start, a:end)
+        if getline(l:line) !~ '^\s*' . l:commentString
+            let l:flag = 1
+            break
+        endif
+    endfor
+
+    if l:flag == 1 " range comment
+        for l:line in range(a:start, a:end)
+            " Comment out the line by placing comment before whitespace
+            execute l:line . 's/^\(\s*\)/' . l:commentString . ' \1/'
+        endfor
+    else  " range uncomment
+        for l:line in range(a:start, a:end)
+            if getline(l:line) =~ '^' . l:commentString
+                " Uncomment the line when comment is at the start of line
+                execute l:line . 's/^' . l:commentString . ' \?\(\s*\)/\1/'
+            elseif getline(l:line) =~ '^\s*' . l:commentString
+                " Uncomment the line when comment is after whitespace
+                execute l:line . 's/^\(\s*\)' . l:commentString . ' \?/\1/'
+            endif
+        endfor
+    endif
+endfunction
+
+
+" Map gc -> ToggleComment
+nnoremap gc :call ToggleCommentLine(line('.'), 2)<CR>
+vnoremap gc :<C-U>call ToggleCommentRange(line("'<"), line("'>"))<CR>
+
+
+" =====================
+"       Gvim设置
+" =====================
 if(has("gui_running"))
     cd d:/Desktop "启动目录
     set lines=30 columns=100  "窗口大小
@@ -168,7 +241,425 @@ if(has("gui_running"))
     inoremap <A-j> <Down>
     inoremap <A-k> <Up>
     inoremap <A-l> <Right>
-
 endif
 
+"   ====   Customsize Status Line  ====
+function! Buf_total_num()
+    return len(filter(range(1, bufnr('$')), 'buflisted(v:val)'))
+endfunction
+function! File_size(f)
+    let l:size = getfsize(expand(a:f))
+    if l:size == 0 || l:size == -1 || l:size == -2
+        return ''
+    endif
+    if l:size < 1024
+        return l:size.' bytes'
+    elseif l:size < 1024*1024
+        return printf('%.1f', l:size/1024.0).'KiB'
+    elseif l:size < 1024*1024*1024
+        return printf('%.1f', l:size/1024.0/1024.0) . 'MiB'
+    else
+        return printf('%.1f', l:size/1024.0/1024.0/1024.0) . 'GiB'
+    endif
+endfunction
+"set statusline=%<%1*[B-%n]%*
+"set statusline+=%2*[TOT:%{Buf_total_num()}]%*  "TOT is an abbreviation for total
+set statusline+=%1*\ %F\ %*
+set statusline+=%=%4*\ %m%r%y\%* " show file type
+" show : unix/dos | utf-8 | row:col
+"set statusline+=%5*\ %{&ff}\ \|\ %{\"\".(&fenc==\"\"?&enc:&fenc).((exists(\"+bomb\")\ &&\ &bomb)?\",B\":\"\").\"\ \|\"}\ %-10.(%l:%c%V%)%*
+" show : unix/dos | utf-8   "\|\" -> show: |
+set statusline+=%5*\ %{&ff}\ \|\ %{\"\".(&fenc==\"\"?&enc:&fenc).((exists(\"+bomb\")\ &&\ &bomb)?\",B\":\"\").\"\\"}\ \|\%*
+set statusline+=%6*\ %P\%*
+set statusline+=%2*\ \|\ %{File_size(@%)}\ %*
+" default bg for statusline is 236 in space-vim-dark
+hi User1 cterm=bold ctermfg=232 ctermbg=179
+hi User2 cterm=None ctermfg=214 ctermbg=242
+hi User3 cterm=None ctermfg=251 ctermbg=240
+hi User4 cterm=bold ctermfg=169 ctermbg=239
+hi User5 cterm=None ctermfg=208 ctermbg=238
+hi User6 cterm=None ctermfg=246 ctermbg=237
+hi User7 cterm=None ctermfg=250 ctermbg=238
+hi User8 cterm=None ctermfg=249 ctermbg=240
 
+
+"*****************************
+"  brackets auto-completion
+"  {} curly braces; <> angle brackets;
+"  () parentheses; [] brackets;
+"  ' " single/double quation 
+"*****************************
+" inoremap <TAB> <c-r>=SkipRightAll()<CR>
+inoremap ( ()<ESC>i
+inoremap ) <c-r>=SkipRightParentheses()<CR>
+inoremap [ []<ESC>i
+inoremap ] <c-r>=SkipRightBrackets()<CR>
+inoremap { {}<ESC>i
+inoremap {<CR> {<CR>}<ESC>O
+inoremap } <c-r>=SkipRightBraces()<CR>
+
+inoremap ' <c-r>=SkipQuotation1()<CR>
+inoremap " <c-r>=SkipQuotation2()<CR>
+
+func SkipRightAll()  
+    if getline('.')[col('.') - 1] == ')' || getline('.')[col('.') - 1] == ']' || getline('.')[col('.') - 1] == '"' || getline('.')[col('.') - 1] == "'" || getline('.')[col('.') - 1] == '}'  
+        return "\<ESC>la"  
+    else  
+        return "\t"  
+    endif  
+endfunc  
+func SkipRightParentheses()
+    if getline('.')[col('.') - 1] == ')'
+        return "\<ESC>la"
+    else
+        return ")"
+    endif
+endfunc
+func SkipRightBrackets()
+    if getline('.')[col('.') - 1] == ']'
+        return "\<ESC>la"
+    else
+        return "]"
+    endif
+endfunc
+func SkipRightAngleBrackets()
+    if getline('.')[col('.') - 1] == '>'
+        return "\<ESC>la"
+    else
+        return ">"
+    endif
+endfunc
+func SkipRightBraces()
+    if getline('.')[col('.') - 1] == '}'
+        return "\<ESC>la"
+    else
+        return "}"
+    endif
+endfunc
+func SkipQuotation1()
+    if getline('.')[col('.') - 1] == "'"
+        return "\<ESC>la"
+    else
+        return "''\<ESC>i"
+    endif
+endfunc
+func SkipQuotation2()
+    if &filetype == 'vim'
+        return "\""
+    endif
+    if getline('.')[col('.') - 1] == '"'
+        return "\<ESC>la"
+    else
+        return "\"\"\<ESC>i"
+    endif
+endfunc
+
+
+"********************************
+" auto build/compile/interprete
+" shortcut: F1
+"********************************
+"" Get current filetype -> :echo &filetype or as variable &filetype
+"" % -> current file name 
+"" :r -> expand name
+"" C Compiler
+"autocmd FileType c nnoremap <buffer> <F1> :!gcc % -o %:r.out && ./%:r.out <CR>
+"" C++ Compiler
+"autocmd FileType cpp nnoremap <buffer> <F1> :!g++ % -o %:r.out && ./%:r.out <CR>
+"" Python Interpreter
+"autocmd FileType python nnoremap <buffer> <F1> :!python % <CR>
+"" Bash script
+"autocmd FileType sh nnoremap <buffer> <F1> :!sh % <CR>
+"" Lua Compiler
+"autocmd FileType lua nnoremap <buffer> <F1> :!lua % <CR>
+"" Executable
+""nnoremap <buffer> <F1> :!./% <CR>
+""nnoremap <buffer> <F1> :! %:p <CR>
+"" Configs
+"autocmd FileType vim,zsh,tmux,conf nnoremap <buffer> <F1> :source % <CR>
+
+" Copyright (c) 2016-present Sven Greb <development@svengreb.de>
+" This source code is licensed under the MIT license found in the license file.
+
+
+
+
+
+" ===============================================================
+" tender
+" A dark and fresh color scheme for vim
+" URL: https://github/com/jacoborus/tender.vim
+" Author: Jacobo Tabernero http://jacoborus.codes
+" License: MIT
+" Last Change: 2020/04/24 16:58
+" ===============================================================
+
+set background=dark
+hi clear
+if exists("syntax_on")
+  syntax reset
+endif
+hi ColorColumn guifg=NONE ctermfg=NONE guibg=#323232 ctermbg=236 gui=NONE cterm=NONE
+hi CursorColumn guifg=NONE ctermfg=NONE guibg=#323232 ctermbg=236 gui=NONE cterm=NONE
+hi CursorLine guifg=NONE ctermfg=NONE guibg=#323232 ctermbg=236 gui=NONE cterm=NONE
+hi CursorLineNr guifg=#73cef4 ctermfg=81 guibg=NONE ctermbg=NONE gui=NONE cterm=NONE
+hi Directory guifg=#b3deef ctermfg=153 guibg=NONE ctermbg=NONE gui=NONE cterm=NONE
+hi DiffAdd guifg=NONE ctermfg=NONE guibg=#464632 ctermbg=238 gui=NONE cterm=NONE
+hi DiffChange guifg=NONE ctermfg=NONE guibg=#335261 ctermbg=239 gui=NONE cterm=NONE
+hi DiffDelete guifg=#f43753 ctermfg=203 guibg=#79313c ctermbg=237 gui=NONE cterm=NONE
+hi DiffText guifg=NONE ctermfg=NONE guibg=NONE ctermbg=NONE gui=reverse cterm=reverse
+hi ErrorMsg guifg=#f43753 ctermfg=203 guibg=NONE ctermbg=NONE gui=reverse cterm=reverse
+hi VertSplit guifg=#282828 ctermfg=235 guibg=#282828 ctermbg=235 gui=NONE cterm=NONE
+hi Folded guifg=#666666 ctermfg=242 guibg=#202020 ctermbg=234 gui=NONE cterm=NONE
+hi FoldColumn guifg=#666666 ctermfg=242 guibg=#202020 ctermbg=234 gui=NONE cterm=NONE
+hi SignColumn guifg=#999999 ctermfg=246 guibg=#282828 ctermbg=235 gui=NONE cterm=NONE
+hi IncSearch guifg=#ffffff ctermfg=15 guibg=#000000 ctermbg=0 gui=Bold,reverse cterm=Bold,reverse
+hi LineNr guifg=#444444 ctermfg=238 guibg=NONE ctermbg=NONE gui=NONE cterm=NONE
+hi MatchParen guifg=#f43753 ctermfg=203 guibg=NONE ctermbg=NONE gui=Bold cterm=Bold
+hi NonText guifg=#444444 ctermfg=238 guibg=NONE ctermbg=NONE gui=NONE cterm=NONE
+hi Normal guifg=#eeeeee ctermfg=255 guibg=#282828 ctermbg=235 gui=NONE cterm=NONE
+hi PMenu guifg=#dadada ctermfg=253 guibg=#335261 ctermbg=239 gui=NONE cterm=NONE
+hi PMenuSel guifg=#335261 ctermfg=239 guibg=#c9d05c ctermbg=185 gui=NONE cterm=NONE
+hi PmenuSbar guifg=#335261 ctermfg=239 guibg=#335261 ctermbg=239 gui=NONE cterm=NONE
+hi PmenuThumb guifg=#c9d05c ctermfg=185 guibg=#c9d05c ctermbg=185 gui=NONE cterm=NONE
+hi Question guifg=#c9d05c ctermfg=185 guibg=NONE ctermbg=NONE gui=NONE cterm=NONE
+hi Search guifg=#ffffff ctermfg=15 guibg=NONE ctermbg=NONE gui=underline,Bold cterm=underline,Bold
+hi SpecialKey guifg=#444444 ctermfg=238 guibg=NONE ctermbg=NONE gui=NONE cterm=NONE
+hi SpellBad guifg=#f43753 ctermfg=203 guibg=NONE ctermbg=NONE gui=NONE cterm=NONE
+hi SpellLocal guifg=#d3b987 ctermfg=180 guibg=NONE ctermbg=NONE gui=NONE cterm=NONE
+hi SpellCap guifg=#ffc24b ctermfg=215 guibg=NONE ctermbg=NONE gui=NONE cterm=NONE
+hi SpellRare guifg=#73cef4 ctermfg=81 guibg=NONE ctermbg=NONE gui=NONE cterm=NONE
+hi StatusLine guifg=#1d1d1d ctermfg=234 guibg=#666666 ctermbg=242 gui=Bold cterm=Bold
+hi StatusLineNC guifg=#999999 ctermfg=246 guibg=#444444 ctermbg=238 gui=NONE cterm=NONE
+hi TabLine guifg=#999999 ctermfg=246 guibg=#444444 ctermbg=238 gui=NONE cterm=NONE
+hi TabLineFill guifg=NONE ctermfg=NONE guibg=#444444 ctermbg=238 gui=NONE cterm=NONE
+hi TabLineSel guifg=#c9d05c ctermfg=185 guibg=NONE ctermbg=NONE gui=Bold cterm=Bold
+hi Title guifg=#b3deef ctermfg=153 guibg=NONE ctermbg=NONE gui=Bold cterm=Bold
+hi Visual guifg=NONE ctermfg=NONE guibg=#293b44 ctermbg=237 gui=Bold cterm=Bold
+hi VisualNOS guifg=NONE ctermfg=NONE guibg=#293b44 ctermbg=237 gui=Bold cterm=Bold
+hi WarningMsg guifg=#f43753 ctermfg=203 guibg=NONE ctermbg=NONE gui=NONE cterm=NONE
+hi WildMenu guifg=#282828 ctermfg=235 guibg=#c9d05c ctermbg=185 gui=Bold cterm=Bold
+hi Comment guifg=#aaaaaa ctermfg=242 guibg=NONE ctermbg=NONE gui=NONE cterm=NONE
+hi Constant guifg=#ffc24b ctermfg=215 guibg=NONE ctermbg=NONE gui=NONE cterm=NONE
+hi String guifg=#d3b987 ctermfg=180 guibg=NONE ctermbg=NONE gui=NONE cterm=NONE
+hi Character guifg=#ffc24b ctermfg=215 guibg=NONE ctermbg=NONE gui=NONE cterm=NONE
+hi Boolean guifg=#ffc24b ctermfg=215 guibg=NONE ctermbg=NONE gui=NONE cterm=NONE
+hi Number guifg=#ffc24b ctermfg=215 guibg=NONE ctermbg=NONE gui=NONE cterm=NONE
+hi Float guifg=#ffc24b ctermfg=215 guibg=NONE ctermbg=NONE gui=NONE cterm=NONE
+hi Identifier guifg=#b3deef ctermfg=153 guibg=NONE ctermbg=NONE gui=NONE cterm=NONE
+hi Function guifg=#b3deef ctermfg=153 guibg=NONE ctermbg=NONE gui=NONE cterm=NONE
+hi Statement guifg=#b3deef ctermfg=153 guibg=NONE ctermbg=NONE gui=NONE cterm=NONE
+hi Conditional guifg=#c9d05c ctermfg=185 guibg=NONE ctermbg=NONE gui=NONE cterm=NONE
+hi Operator guifg=#f43753 ctermfg=203 guibg=NONE ctermbg=NONE gui=NONE cterm=NONE
+hi Exception guifg=#f43753 ctermfg=203 guibg=NONE ctermbg=NONE gui=NONE cterm=NONE
+hi PreProc guifg=#c9d05c ctermfg=185 guibg=NONE ctermbg=NONE gui=NONE cterm=NONE
+hi Type guifg=#73cef4 ctermfg=81 guibg=NONE ctermbg=NONE gui=NONE cterm=NONE
+hi Special guifg=#73cef4 ctermfg=81 guibg=NONE ctermbg=NONE gui=NONE cterm=NONE
+hi Underlined guifg=NONE ctermfg=NONE guibg=NONE ctermbg=NONE gui=underline cterm=underline
+hi Error guifg=#eeeeee ctermfg=255 guibg=#f43753 ctermbg=203 gui=NONE cterm=NONE
+hi Todo guifg=#f43753 ctermfg=203 guibg=NONE ctermbg=NONE gui=Bold cterm=Bold
+hi CocErrorSign guifg=#f43753 ctermfg=203 guibg=NONE ctermbg=NONE gui=NONE cterm=NONE
+hi CocWarningSign guifg=#d3b987 ctermfg=180 guibg=NONE ctermbg=NONE gui=NONE cterm=NONE
+hi CocHintSign guifg=#73cef4 ctermfg=81 guibg=NONE ctermbg=NONE gui=NONE cterm=NONE
+hi CocInfoSign guifg=#ffc24b ctermfg=215 guibg=NONE ctermbg=NONE gui=NONE cterm=NONE
+hi cssVendor guifg=#9faa00 ctermfg=142 guibg=NONE ctermbg=NONE gui=NONE cterm=NONE
+hi cssTagName guifg=#9faa00 ctermfg=142 guibg=NONE ctermbg=NONE gui=NONE cterm=NONE
+hi cssAttrComma guifg=#eeeeee ctermfg=255 guibg=NONE ctermbg=NONE gui=NONE cterm=NONE
+hi cssBackgroundProp guifg=#b3deef ctermfg=153 guibg=NONE ctermbg=NONE gui=NONE cterm=NONE
+hi cssBorderProp guifg=#b3deef ctermfg=153 guibg=NONE ctermbg=NONE gui=NONE cterm=NONE
+hi cssBoxProp guifg=#73cef4 ctermfg=81 guibg=NONE ctermbg=NONE gui=NONE cterm=NONE
+hi cssDimensionProp guifg=#73cef4 ctermfg=81 guibg=NONE ctermbg=NONE gui=NONE cterm=NONE
+hi cssFontProp guifg=#b3deef ctermfg=153 guibg=NONE ctermbg=NONE gui=NONE cterm=NONE
+hi cssPositioningProp guifg=#73cef4 ctermfg=81 guibg=NONE ctermbg=NONE gui=NONE cterm=NONE
+hi cssTextProp guifg=#b3deef ctermfg=153 guibg=NONE ctermbg=NONE gui=NONE cterm=NONE
+hi cssValueLength guifg=#eeeeee ctermfg=255 guibg=NONE ctermbg=NONE gui=NONE cterm=NONE
+hi cssValueInteger guifg=#eeeeee ctermfg=255 guibg=NONE ctermbg=NONE gui=NONE cterm=NONE
+hi cssValueNumber guifg=#eeeeee ctermfg=255 guibg=NONE ctermbg=NONE gui=NONE cterm=NONE
+hi cssIdentifier guifg=#9faa00 ctermfg=142 guibg=NONE ctermbg=NONE gui=NONE cterm=NONE
+hi cssIncludeKeyword guifg=#ffc24b ctermfg=215 guibg=NONE ctermbg=NONE gui=NONE cterm=NONE
+hi cssImportant guifg=#f43753 ctermfg=203 guibg=NONE ctermbg=NONE gui=NONE cterm=NONE
+hi cssClassName guifg=#c9d05c ctermfg=185 guibg=NONE ctermbg=NONE gui=NONE cterm=NONE
+hi cssClassNameDot guifg=#eeeeee ctermfg=255 guibg=NONE ctermbg=NONE gui=NONE cterm=NONE
+hi cssProp guifg=#b3deef ctermfg=153 guibg=NONE ctermbg=NONE gui=NONE cterm=NONE
+hi cssAttr guifg=#eeeeee ctermfg=255 guibg=NONE ctermbg=NONE gui=NONE cterm=NONE
+hi cssUnitDecorators guifg=#eeeeee ctermfg=255 guibg=NONE ctermbg=NONE gui=NONE cterm=NONE
+hi cssNoise guifg=#f43753 ctermfg=203 guibg=NONE ctermbg=NONE gui=NONE cterm=NONE
+hi diffRemoved guifg=#f43753 ctermfg=203 guibg=NONE ctermbg=NONE gui=NONE cterm=NONE
+hi diffChanged guifg=#b3deef ctermfg=153 guibg=NONE ctermbg=NONE gui=NONE cterm=NONE
+hi diffAdded guifg=#c9d05c ctermfg=185 guibg=NONE ctermbg=NONE gui=NONE cterm=NONE
+hi diffSubname guifg=#9faa00 ctermfg=142 guibg=NONE ctermbg=NONE gui=NONE cterm=NONE
+hi elmDelimiter guifg=#eeeeee ctermfg=255 guibg=NONE ctermbg=NONE gui=NONE cterm=NONE
+hi elmOperator guifg=#f43753 ctermfg=203 guibg=NONE ctermbg=NONE gui=NONE cterm=NONE
+hi FugitiveblameHash guifg=#b3deef ctermfg=153 guibg=NONE ctermbg=NONE gui=NONE cterm=NONE
+hi FugitiveblameUncommitted guifg=#f43753 ctermfg=203 guibg=NONE ctermbg=NONE gui=NONE cterm=NONE
+hi FugitiveblameTime guifg=#c9d05c ctermfg=185 guibg=NONE ctermbg=NONE gui=NONE cterm=NONE
+hi FugitiveblameNotCommittedYet guifg=#ffc24b ctermfg=215 guibg=NONE ctermbg=NONE gui=NONE cterm=NONE
+hi gitcommitBranch guifg=#73cef4 ctermfg=81 guibg=NONE ctermbg=NONE gui=NONE cterm=NONE
+hi gitcommitDiscardedType guifg=#c5152f ctermfg=160 guibg=NONE ctermbg=NONE gui=NONE cterm=NONE
+hi gitcommitSelectedType guifg=#9faa00 ctermfg=142 guibg=NONE ctermbg=NONE gui=NONE cterm=NONE
+hi gitcommitHeader guifg=#b3deef ctermfg=153 guibg=NONE ctermbg=NONE gui=NONE cterm=NONE
+hi gitcommitUntrackedFile guifg=#ffc24b ctermfg=215 guibg=NONE ctermbg=NONE gui=NONE cterm=NONE
+hi gitcommitDiscardedFile guifg=#f43753 ctermfg=203 guibg=NONE ctermbg=NONE gui=NONE cterm=NONE
+hi gitcommitSelectedFile guifg=#c9d05c ctermfg=185 guibg=NONE ctermbg=NONE gui=NONE cterm=NONE
+hi helpHyperTextEntry guifg=#c9d05c ctermfg=185 guibg=NONE ctermbg=NONE gui=NONE cterm=NONE
+hi helpHeadline guifg=#73cef4 ctermfg=81 guibg=NONE ctermbg=NONE gui=NONE cterm=NONE
+hi helpSectionDelim guifg=#666666 ctermfg=242 guibg=NONE ctermbg=NONE gui=NONE cterm=NONE
+hi helpNote guifg=#f43753 ctermfg=203 guibg=NONE ctermbg=NONE gui=NONE cterm=NONE
+hi javaScriptOperator guifg=#c9d05c ctermfg=185 guibg=NONE ctermbg=NONE gui=NONE cterm=NONE
+hi javaScriptBraces guifg=#b3deef ctermfg=153 guibg=NONE ctermbg=NONE gui=NONE cterm=NONE
+hi javaScriptNull guifg=#ffc24b ctermfg=215 guibg=NONE ctermbg=NONE gui=NONE cterm=NONE
+hi jsonEscape guifg=#73cef4 ctermfg=81 guibg=NONE ctermbg=NONE gui=NONE cterm=NONE
+hi jsonNumber guifg=#ffc24b ctermfg=215 guibg=NONE ctermbg=NONE gui=NONE cterm=NONE
+hi jsonBraces guifg=#eeeeee ctermfg=255 guibg=NONE ctermbg=NONE gui=NONE cterm=NONE
+hi jsonNull guifg=#ffc24b ctermfg=215 guibg=NONE ctermbg=NONE gui=NONE cterm=NONE
+hi jsonBoolean guifg=#ffc24b ctermfg=215 guibg=NONE ctermbg=NONE gui=NONE cterm=NONE
+hi jsonKeywordMatch guifg=#f43753 ctermfg=203 guibg=NONE ctermbg=NONE gui=NONE cterm=NONE
+hi jsonQuote guifg=#eeeeee ctermfg=255 guibg=NONE ctermbg=NONE gui=NONE cterm=NONE
+hi jsonNoise guifg=#f43753 ctermfg=203 guibg=NONE ctermbg=NONE gui=NONE cterm=NONE
+hi markdownH1 guifg=#b3deef ctermfg=153 guibg=NONE ctermbg=NONE gui=Bold cterm=Bold
+hi markdownHeadingRule guifg=#f43753 ctermfg=203 guibg=NONE ctermbg=NONE gui=Bold cterm=Bold
+hi markdownHeadingDelimiter guifg=#f43753 ctermfg=203 guibg=NONE ctermbg=NONE gui=Bold cterm=Bold
+hi markdownListMarker guifg=#ffc24b ctermfg=215 guibg=NONE ctermbg=NONE gui=NONE cterm=NONE
+hi markdownBlockquote guifg=#ffc24b ctermfg=215 guibg=NONE ctermbg=NONE gui=NONE cterm=NONE
+hi markdownRule guifg=#c9d05c ctermfg=185 guibg=NONE ctermbg=NONE gui=NONE cterm=NONE
+hi markdownLinkText guifg=#c9d05c ctermfg=185 guibg=NONE ctermbg=NONE gui=NONE cterm=NONE
+hi markdownLinkTextDelimiter guifg=#b3deef ctermfg=153 guibg=NONE ctermbg=NONE gui=NONE cterm=NONE
+hi markdownLinkDelimiter guifg=#b3deef ctermfg=153 guibg=NONE ctermbg=NONE gui=NONE cterm=NONE
+hi markdownIdDeclaration guifg=#9faa00 ctermfg=142 guibg=NONE ctermbg=NONE gui=NONE cterm=NONE
+hi markdownAutomaticLink guifg=#73cef4 ctermfg=81 guibg=NONE ctermbg=NONE gui=NONE cterm=NONE
+hi markdownUrl guifg=#73cef4 ctermfg=81 guibg=NONE ctermbg=NONE gui=NONE cterm=NONE
+hi markdownUrlTitle guifg=#d3b987 ctermfg=180 guibg=NONE ctermbg=NONE gui=NONE cterm=NONE
+hi markdownUrlDelimiter guifg=#ffc24b ctermfg=215 guibg=NONE ctermbg=NONE gui=NONE cterm=NONE
+hi markdownUrlTitleDelimiter guifg=#715b2f ctermfg=58 guibg=NONE ctermbg=NONE gui=NONE cterm=NONE
+hi markdownCodeDelimiter guifg=#73cef4 ctermfg=81 guibg=NONE ctermbg=NONE gui=NONE cterm=NONE
+hi markdownCode guifg=#d3b987 ctermfg=180 guibg=NONE ctermbg=NONE gui=NONE cterm=NONE
+hi markdownEscape guifg=#73cef4 ctermfg=81 guibg=NONE ctermbg=NONE gui=NONE cterm=NONE
+hi markdownError guifg=#f43753 ctermfg=203 guibg=NONE ctermbg=NONE gui=NONE cterm=NONE
+hi NERDTreeHelp guifg=#eeeeee ctermfg=255 guibg=NONE ctermbg=NONE gui=NONE cterm=NONE
+hi NERDTreeHelpKey guifg=#c9d05c ctermfg=185 guibg=NONE ctermbg=NONE gui=NONE cterm=NONE
+hi NERDTreeHelpCommand guifg=#ffc24b ctermfg=215 guibg=NONE ctermbg=NONE gui=NONE cterm=NONE
+hi NERDTreeHelpTitle guifg=#b3deef ctermfg=153 guibg=NONE ctermbg=NONE gui=NONE cterm=NONE
+hi NERDTreeUp guifg=#c9d05c ctermfg=185 guibg=NONE ctermbg=NONE gui=NONE cterm=NONE
+hi NERDTreeCWD guifg=#73cef4 ctermfg=81 guibg=NONE ctermbg=NONE gui=NONE cterm=NONE
+hi NERDTreeOpenable guifg=#f43753 ctermfg=203 guibg=NONE ctermbg=NONE gui=NONE cterm=NONE
+hi NERDTreeClosable guifg=#ffc24b ctermfg=215 guibg=NONE ctermbg=NONE gui=NONE cterm=NONE
+hi pugJavascriptOutputChar guifg=#ffc24b ctermfg=215 guibg=NONE ctermbg=NONE gui=NONE cterm=NONE
+hi typescriptParens guifg=#b3deef ctermfg=153 guibg=NONE ctermbg=NONE gui=NONE cterm=NONE
+hi typescriptLogicSymbols guifg=#f43753 ctermfg=203 guibg=NONE ctermbg=NONE gui=NONE cterm=NONE
+hi typescriptReserved guifg=#73cef4 ctermfg=81 guibg=NONE ctermbg=NONE gui=NONE cterm=NONE
+hi typescriptLabel guifg=#c9d05c ctermfg=185 guibg=NONE ctermbg=NONE gui=NONE cterm=NONE
+hi typescriptFuncName guifg=#c9d05c ctermfg=185 guibg=NONE ctermbg=NONE gui=NONE cterm=NONE
+hi typescriptCall guifg=#ffc24b ctermfg=215 guibg=NONE ctermbg=NONE gui=NONE cterm=NONE
+hi typescriptVariable guifg=#73cef4 ctermfg=81 guibg=NONE ctermbg=NONE gui=NONE cterm=NONE
+hi typescriptBinaryOp guifg=#f43753 ctermfg=203 guibg=NONE ctermbg=NONE gui=NONE cterm=NONE
+hi typescriptAssign guifg=#f43753 ctermfg=203 guibg=NONE ctermbg=NONE gui=NONE cterm=NONE
+hi typescriptObjectLabel guifg=#b3deef ctermfg=153 guibg=NONE ctermbg=NONE gui=NONE cterm=NONE
+hi typescriptDotNotation guifg=#f43753 ctermfg=203 guibg=NONE ctermbg=NONE gui=NONE cterm=NONE
+hi typescriptOperator guifg=#f43753 ctermfg=203 guibg=NONE ctermbg=NONE gui=NONE cterm=NONE
+hi typescriptTernaryOp guifg=#f43753 ctermfg=203 guibg=NONE ctermbg=NONE gui=NONE cterm=NONE
+hi typescriptTypeAnnotation guifg=#f43753 ctermfg=203 guibg=NONE ctermbg=NONE gui=NONE cterm=NONE
+hi typescriptIdentifierName guifg=#eeeeee ctermfg=255 guibg=NONE ctermbg=NONE gui=NONE cterm=NONE
+hi typescriptArrowFuncArg guifg=#ffc24b ctermfg=215 guibg=NONE ctermbg=NONE gui=NONE cterm=NONE
+hi typescriptParamImpl guifg=#ffc24b ctermfg=215 guibg=NONE ctermbg=NONE gui=NONE cterm=NONE
+hi typescriptRepeat guifg=#c9d05c ctermfg=185 guibg=NONE ctermbg=NONE gui=NONE cterm=NONE
+hi typescriptStatementKeyword guifg=#73cef4 ctermfg=81 guibg=NONE ctermbg=NONE gui=NONE cterm=NONE
+hi typescriptAliasKeyword guifg=#c9d05c ctermfg=185 guibg=NONE ctermbg=NONE gui=NONE cterm=NONE
+hi typescriptInterfaceKeyword guifg=#c9d05c ctermfg=185 guibg=NONE ctermbg=NONE gui=NONE cterm=NONE
+hi typescriptTemplateSB guifg=#f43753 ctermfg=203 guibg=NONE ctermbg=NONE gui=NONE cterm=NONE
+hi typescriptMemberOptionality guifg=#ffc24b ctermfg=215 guibg=NONE ctermbg=NONE gui=NONE cterm=NONE
+hi typescriptOptionalMark guifg=#ffc24b ctermfg=215 guibg=NONE ctermbg=NONE gui=NONE cterm=NONE
+hi typescriptUnaryOp guifg=#f43753 ctermfg=203 guibg=NONE ctermbg=NONE gui=NONE cterm=NONE
+hi GitGutterAdd guifg=#c9d05c ctermfg=185 guibg=NONE ctermbg=NONE gui=NONE cterm=NONE
+hi GitGutterChange guifg=#b3deef ctermfg=153 guibg=NONE ctermbg=NONE gui=NONE cterm=NONE
+hi GitGutterDelete guifg=#f43753 ctermfg=203 guibg=NONE ctermbg=NONE gui=NONE cterm=NONE
+hi GitGutterChangeDelete guifg=#f43753 ctermfg=203 guibg=NONE ctermbg=NONE gui=NONE cterm=NONE
+hi javaScriptOpSymbols guifg=#f43753 ctermfg=203 guibg=NONE ctermbg=NONE gui=NONE cterm=NONE
+hi javaScriptParens guifg=#b3deef ctermfg=153 guibg=NONE ctermbg=NONE gui=NONE cterm=NONE
+hi javaScriptDocTags guifg=#6a6b3f ctermfg=242 guibg=NONE ctermbg=NONE gui=NONE cterm=NONE
+hi javaScriptDocSeeTag guifg=#44778d ctermfg=66 guibg=NONE ctermbg=NONE gui=NONE cterm=NONE
+hi javaScriptBrowserObjects guifg=#73cef4 ctermfg=81 guibg=NONE ctermbg=NONE gui=NONE cterm=NONE
+hi javaScriptDOMObjects guifg=#73cef4 ctermfg=81 guibg=NONE ctermbg=NONE gui=NONE cterm=NONE
+hi javaScriptFuncArg guifg=#ffc24b ctermfg=215 guibg=NONE ctermbg=NONE gui=NONE cterm=NONE
+hi jsParensIfElse guifg=#b3deef ctermfg=153 guibg=NONE ctermbg=NONE gui=NONE cterm=NONE
+hi jsObjectKey guifg=#b3deef ctermfg=153 guibg=NONE ctermbg=NONE gui=NONE cterm=NONE
+hi jsRepeat guifg=#c9d05c ctermfg=185 guibg=NONE ctermbg=NONE gui=NONE cterm=NONE
+hi jsArrowFunction guifg=#9faa00 ctermfg=142 guibg=NONE ctermbg=NONE gui=NONE cterm=NONE
+hi jsFunctionKey guifg=#c9d05c ctermfg=185 guibg=NONE ctermbg=NONE gui=NONE cterm=NONE
+hi jsFuncName guifg=#c9d05c ctermfg=185 guibg=NONE ctermbg=NONE gui=NONE cterm=NONE
+hi jsObjectFuncName guifg=#c9d05c ctermfg=185 guibg=NONE ctermbg=NONE gui=NONE cterm=NONE
+hi jsNull guifg=#ffc24b ctermfg=215 guibg=NONE ctermbg=NONE gui=NONE cterm=NONE
+hi jsObjectColon guifg=#f43753 ctermfg=203 guibg=NONE ctermbg=NONE gui=NONE cterm=NONE
+hi jsParens guifg=#b3deef ctermfg=153 guibg=NONE ctermbg=NONE gui=NONE cterm=NONE
+hi jsFuncParens guifg=#b3deef ctermfg=153 guibg=NONE ctermbg=NONE gui=NONE cterm=NONE
+hi jsFuncArgs guifg=#ffc24b ctermfg=215 guibg=NONE ctermbg=NONE gui=NONE cterm=NONE
+hi jsSpecial guifg=#ffc24b ctermfg=215 guibg=NONE ctermbg=NONE gui=NONE cterm=NONE
+hi jsTemplateBraces guifg=#f43753 ctermfg=203 guibg=NONE ctermbg=NONE gui=NONE cterm=NONE
+hi jsGlobalObjects guifg=#73cef4 ctermfg=81 guibg=NONE ctermbg=NONE gui=NONE cterm=NONE
+hi jsGlobalNodeObjects guifg=#b3deef ctermfg=153 guibg=NONE ctermbg=NONE gui=NONE cterm=NONE
+hi jsImport guifg=#73cef4 ctermfg=81 guibg=NONE ctermbg=NONE gui=NONE cterm=NONE
+hi jsExport guifg=#73cef4 ctermfg=81 guibg=NONE ctermbg=NONE gui=NONE cterm=NONE
+hi jsExportDefault guifg=#c9d05c ctermfg=185 guibg=NONE ctermbg=NONE gui=NONE cterm=NONE
+hi jsExportDefaultGroup guifg=#73cef4 ctermfg=81 guibg=NONE ctermbg=NONE gui=NONE cterm=NONE
+hi jsFrom guifg=#73cef4 ctermfg=81 guibg=NONE ctermbg=NONE gui=NONE cterm=NONE
+hi plug2 guifg=#c9d05c ctermfg=185 guibg=NONE ctermbg=NONE gui=NONE cterm=NONE
+hi plugH2 guifg=#73cef4 ctermfg=81 guibg=NONE ctermbg=NONE gui=Bold cterm=Bold
+hi plugBracket guifg=#b3deef ctermfg=153 guibg=NONE ctermbg=NONE gui=NONE cterm=NONE
+hi plugNumber guifg=#ffc24b ctermfg=215 guibg=NONE ctermbg=NONE gui=NONE cterm=NONE
+hi plugDash guifg=#ffc24b ctermfg=215 guibg=NONE ctermbg=NONE gui=NONE cterm=NONE
+hi plugStar guifg=#d3b987 ctermfg=180 guibg=NONE ctermbg=NONE gui=NONE cterm=NONE
+hi plugMessage guifg=#ffc24b ctermfg=215 guibg=NONE ctermbg=NONE gui=NONE cterm=NONE
+hi plugName guifg=#b3deef ctermfg=153 guibg=NONE ctermbg=NONE gui=NONE cterm=NONE
+hi plugUpdate guifg=#f43753 ctermfg=203 guibg=NONE ctermbg=NONE gui=NONE cterm=NONE
+hi plugEdge guifg=#c9d05c ctermfg=185 guibg=NONE ctermbg=NONE gui=NONE cterm=NONE
+hi plugSha guifg=#d3b987 ctermfg=180 guibg=NONE ctermbg=NONE gui=NONE cterm=NONE
+hi plugNotLoaded guifg=#79313c ctermfg=237 guibg=NONE ctermbg=NONE gui=NONE cterm=NONE
+hi link SignifySignAdd GitGutterAdd
+hi link SignifySignDelete GitGutterDelete
+hi link SignifySignDeleteFirstLine SignifySignDelete
+hi link SignifySignChange GitGutterChange
+hi link SignifySignChangeDelete GitGutterChangeDelete
+hi stylusVariable guifg=#eeeeee ctermfg=255 guibg=NONE ctermbg=NONE gui=NONE cterm=NONE
+hi stylusClass guifg=#c9d05c ctermfg=185 guibg=NONE ctermbg=NONE gui=NONE cterm=NONE
+hi stylusClassChar guifg=#b3deef ctermfg=153 guibg=NONE ctermbg=NONE gui=NONE cterm=NONE
+hi stylusId guifg=#c9d05c ctermfg=185 guibg=NONE ctermbg=NONE gui=NONE cterm=NONE
+hi stylusIdChar guifg=#b3deef ctermfg=153 guibg=NONE ctermbg=NONE gui=NONE cterm=NONE
+hi cssVisualVal guifg=#eeeeee ctermfg=255 guibg=NONE ctermbg=NONE gui=NONE cterm=NONE
+hi stylusImport guifg=#ffc24b ctermfg=215 guibg=NONE ctermbg=NONE gui=NONE cterm=NONE
+hi vimCommentString guifg=#715b2f ctermfg=58 guibg=NONE ctermbg=NONE gui=NONE cterm=NONE
+hi vimCommentTitle guifg=#44778d ctermfg=66 guibg=NONE ctermbg=NONE gui=NONE cterm=NONE
+hi vimError guifg=#eeeeee ctermfg=255 guibg=#f43753 ctermbg=203 gui=NONE cterm=NONE
+hi xmlNamespace guifg=#ffc24b ctermfg=215 guibg=NONE ctermbg=NONE gui=NONE cterm=NONE
+hi xmlAttribPunct guifg=#f43753 ctermfg=203 guibg=NONE ctermbg=NONE gui=NONE cterm=NONE
+hi xmlProcessingDelim guifg=#f43753 ctermfg=203 guibg=NONE ctermbg=NONE gui=NONE cterm=NONE
+hi javascriptOpSymbol guifg=#f43753 ctermfg=203 guibg=NONE ctermbg=NONE gui=NONE cterm=NONE
+hi javascriptDocNotation guifg=#6a6b3f ctermfg=242 guibg=NONE ctermbg=NONE gui=NONE cterm=NONE
+hi javascriptDocNamedParamType guifg=#44778d ctermfg=66 guibg=NONE ctermbg=NONE gui=NONE cterm=NONE
+hi javascriptDocParamName guifg=#715b2f ctermfg=58 guibg=NONE ctermbg=NONE gui=NONE cterm=NONE
+hi javascriptDocParamType guifg=#44778d ctermfg=66 guibg=NONE ctermbg=NONE gui=NONE cterm=NONE
+hi javascriptTemplateSB guifg=#f43753 ctermfg=203 guibg=NONE ctermbg=NONE gui=NONE cterm=NONE
+hi javascriptRepeat guifg=#c9d05c ctermfg=185 guibg=NONE ctermbg=NONE gui=NONE cterm=NONE
+hi javascriptObjectLabelColon guifg=#f43753 ctermfg=203 guibg=NONE ctermbg=NONE gui=NONE cterm=NONE
+hi javascriptObjectMethodName guifg=#c9d05c ctermfg=185 guibg=NONE ctermbg=NONE gui=NONE cterm=NONE
+hi javascriptFuncName guifg=#c9d05c ctermfg=185 guibg=NONE ctermbg=NONE gui=NONE cterm=NONE
+hi yamlFlowString guifg=#d3b987 ctermfg=180 guibg=NONE ctermbg=NONE gui=NONE cterm=NONE
+hi yamlFlowStringDelimiter guifg=#eeeeee ctermfg=255 guibg=NONE ctermbg=NONE gui=NONE cterm=NONE
+hi yamlKeyValueDelimiter guifg=#f43753 ctermfg=203 guibg=NONE ctermbg=NONE gui=NONE cterm=NONE
+
+let g:terminal_color_foreground = "#282828"
+let g:terminal_color_background = "#eeeeee"
+let g:terminal_color_0 = "#282828"
+let g:terminal_color_1 = "#f43753"
+let g:terminal_color_2 = "#c9d05c"
+let g:terminal_color_3 = "#ffc24b"
+let g:terminal_color_4 = "#b3deef"
+let g:terminal_color_5 = "#d3b987"
+let g:terminal_color_6 = "#73cef4"
+let g:terminal_color_7 = "#eeeeee"
+let g:terminal_color_8 = "#1d1d1d"
+let g:terminal_color_9 = "#f43753"
+let g:terminal_color_10 = "#c9d05c"
+let g:terminal_color_11 = "#ffc24b"
+let g:terminal_color_12 = "#b3deef"
+let g:terminal_color_13 = "#d3b987"
+let g:terminal_color_14 = "#73cef4"
+let g:terminal_color_15 = "#ffffff"
