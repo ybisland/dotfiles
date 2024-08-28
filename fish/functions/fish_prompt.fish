@@ -62,12 +62,30 @@ function fish_prompt
     set -l blue (set_color -o blue)
     set -l normal (set_color normal)
 
-    set -l arrow_color "$green"
-    if test $__last_command_exit_status != 0
-        set arrow_color "$red"
+    set -l user_name
+    if set -q -g show_username
+        set user_name $green$USER
     end
 
-    set -l arrow "$arrow_color➜"
+    set -l host_name
+    if set -q -g show_hostname
+        set host_name $green@(hostname)
+    end
+
+    set -l space " "
+    set -q -g show_hostname show_username
+    if test $status -eq 2
+        set space 
+    end
+
+    set -l arrow_color "$green"
+    set -l last_exit_status
+    if test $__last_command_exit_status != 0
+        set arrow_color "$red"
+        set last_exit_status "[$__last_command_exit_status] "
+    end
+
+    set -l arrow "$arrow_color➜ "
     if test "$USER" = 'root'
         set arrow "$arrow_color# "
     end
@@ -85,5 +103,5 @@ function fish_prompt
         end
     end
 
-    echo -n -s $arrow ' '$cwd $repo_info $normal ' '
+    echo -n -s $user_name $host_name $space $arrow_color $last_exit_status $arrow ' ' $cwd $repo_info $normal ' '
 end

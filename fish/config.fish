@@ -1,5 +1,6 @@
 #   Modify Date    :  2022 05 12
 #   File Location  :  ~/.config/fish/config.fish
+#   Revision Date  :  2024 08 05, add config item `show_username/hostname`
 
 # input mode
 fish_default_key_bindings # fish_vi_key_bindings
@@ -16,10 +17,15 @@ set -x PATH /home/bynn/.local/bin $PATH
 
 set -x EDITOR /usr/bin/nvim
 
+# TODO
+# comment out to hide username or hostname.
+set -g show_username
+set -g show_hostname
+
 # alias
 alias l "ls -alh"
 alias la "ls -a"
-alias vi "nvim"
+# alias vi "nvim"
 alias j "jobs"
 abbr - "cd -"
 
