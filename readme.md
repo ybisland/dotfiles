@@ -127,3 +127,6 @@ trash -e
 6. autojump: sudo apt
 7. ranger:sudo apt
 8. lazygit: brew / github
+
+# 字体
+在`/misc/fonts/`下面有nerd font字体
