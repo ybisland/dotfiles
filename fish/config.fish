@@ -1,6 +1,10 @@
 #   Modify Date    :  2022 05 12
 #   File Location  :  ~/.config/fish/config.fish
-#   Revision Date  :  2024 08 05, add config item `show_username/hostname`
+#   Revision :  
+#   2024 08 05, add config item `show_username/hostname` (not finished)
+#   2024 09 02, add abbr `cat batcat`
+
+
 
 # input mode
 fish_default_key_bindings # fish_vi_key_bindings
@@ -15,17 +19,28 @@ set fish_greeting
 #set -x PATH /home/bynn/.local/share/nvim/lsp_servers/sumneko_lua/extension/server/bin $PATH
 set -x PATH /home/bynn/.local/bin $PATH
 
-set -x EDITOR /usr/bin/nvim
+# set neovim as default editor
+#set -x EDITOR /usr/bin/nvim
 
 # TODO
 # comment out to hide username or hostname.
-set -g show_username
-set -g show_hostname
+#set -g show_username
+#set -g show_hostname
+
+
+# 检测软件是否已经安装
+if [ -z (fzf --version) ]  # -z 判断字符串长度是否为0
+    echo "fzf is not installed."
+else
+    fzf --fish | source
+end
+
+
 
 # alias
 alias l "ls -alh"
 alias la "ls -a"
-# alias vi "nvim"
+# alias vi "nvim"  # TODO: use abbr not alias
 alias j "jobs"
 abbr - "cd -"
 
@@ -65,6 +80,10 @@ abbr ra "ranger"
 abbr rg "ranger"
 # lazygit
 abbr lg "lazygit"
+# batcat
+abbr cat "batcat"
+abbr fd "fdfind"
+
 
 abbr rmswap "trash ~/.local/share/nvim/swap/"
 abbr fu "fuck"

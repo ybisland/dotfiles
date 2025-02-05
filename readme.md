@@ -130,3 +130,60 @@ trash -e
 
 # 字体
 在`/misc/fonts/`下面有nerd font字体
+
+# ToDos !!!! @20240902
+`ln -s /path/to/origin /path/to/destination` must use full path, eg. `ln -s ~/dotfiles/fish/config.fish ~/.config/fish/config.fish`
+
+# Fish最新版下载
+支持Ubuntu 16.04 LTS及以后的Ubuntu版本
+```bash
+sudo apt-add-repository ppa:fish-shell/release-3
+sudo apt update
+sudo apt install fish
+More info: https://launchpad.net/~fish-shell/+archive/ubuntu/release-3
+```
+
+# Tmux最新版下载
+> Todo：配置文件应该是基于3.2a的，现在是3.4a，需要更新配置文件. https://github.com/tmux/tmux/wiki
+
+
+# ranger配置
+配置文件位置：
+```bash
+➜  codetest ranger --copy-config=all
+creating: /home/devnew/.config/ranger/rifle.conf
+creating: /home/devnew/.config/ranger/commands.py
+creating: /home/devnew/.config/ranger/commands_full.py
+creating: /home/devnew/.config/ranger/rc.conf
+creating: /home/devnew/.config/ranger/scope.sh
+
+> Please note that configuration files may change as ranger evolves.
+  It's completely up to you to keep them up to date.
+
+> To stop ranger from loading both the default and your custom rc.conf,
+  please set the environment variable RANGER_LOAD_DEFAULT_RC to FALSE.
+```
+
+使用ranger --copy-config=all将在~/.config/ranger中生成一系列配置文件
+
+rc.conf 常用于设置选项和绑定快捷键.(最常用)
+scope.sh 常用于设置文件的预览方式
+rifle.conf 常用于设置使用那个软件来打开文件
+commands.py python文件,增强和改进ranger的各种功能
+
+
+# fzf
+从github官方仓库安装fzf，不要使用`sudo apt install fzf`(版本太旧)
+
+https://github.com/junegunn/fzf/releases
+
+使用`fzf --fish | source`让fish加载fzf自带的shell配置。该配置提供三个快捷键：
+- Ctrl+r 搜索历史命令（fish本来就带）
+- Ctrl+t 在命令行中搜索并放置文件名
+- alt+c  切换目录
+
+> PS: 在fish中，Ctrl+t alt+c只能搜索当前路径下面的子文件. 
+想搜索指定路径下的文件，先写路径，然后再按Ctrl+t.
+
+# nnn (todo)
+依赖安装：
